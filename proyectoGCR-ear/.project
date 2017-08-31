@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>proyectoGCR-ear</name>
+	<name>proyectoGRC-ear</name>
 	<comment></comment>
 	<projects>
-		<project>proyectoGCR-ejb</project>
-		<project>proyectoGCR-web</project>
-		<project>proyectoGCR-repository</project>
+		<project>proyectoGRC-web</project>
+		<project>proyectoGRC-repository</project>
+		<project>proyectoGRC-ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
