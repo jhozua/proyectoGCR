@@ -1,0 +1,130 @@
+.rowEnabled
+{
+	color: black;
+}
+.rowDisabled
+{
+	opacity: 0.5;
+}
+.rowFocused
+{
+	background-color: #D9E1F2;
+}
+.rowDisabledFocused
+{
+	background-color: #D9E1F2;
+	opacity: 0.5;
+}
+.special-condition
+{
+	background-image: url("../img/arrow-close.png");
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	top: 50%;
+	margin-top: -6px;
+}
+.collapsed-tree
+{
+	background-image: url("../img/minus1.png");
+	opacity: 0.7;
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	top: 50%;
+	margin-top: -6px;
+}
+.expand
+{
+	background-image: url("../img/plus1.png");
+	opacity: 0.7;
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	top: 50%;
+	margin-top: -6px;
+}
+.tree-table
+{
+	font-size: 13px;
+	overflow-x: auto;
+	cursor: pointer;
+}
+.node
+{
+    position: relative;
+    float: left;
+}
+.node:hover
+{
+	background-color: #ffff6c;
+}
+.node-cover{
+	position:absolute;
+	width:100%;
+	height:100%;
+	background-color:blue;
+	border:1px solid white;
+}
+.node-children
+{
+
+}
+.row-column 
+{
+	display: table-cell;
+	border-style: solid;
+    border-width: 1px;
+    background-color: #444444;
+    color: white;
+    text-align: center;
+    min-height: 30px;
+    line-height: 30px;
+}
+.node-property 
+{
+	display: table-cell;
+    border: 1px solid #000;
+    vertical-align: middle;	
+    overflow-x: auto;
+}
+.nodelevel1 
+{
+	padding-left: 15px;
+}
+.nodelevel2 
+{
+	padding-left: 20px;
+	
+}
+.nodelevel3 
+{
+	padding-left: 25px;
+	
+}
+
+.contextMenu
+{
+	position:absolute;
+	display:none;
+	background-color: #F2F2F2;
+	z-index: auto;
+	color:black;
+	border: 1px solid black;
+	min-width: 200px;
+	box-shadow: 3px 3px 3px #888888;
+}
+.contextMenuOptions
+{
+	padding-left: 10px;
+	min-height: 25px;
+	line-height: 25px;
+
+}
+.contextMenuOptions:hover
+{
+	background-color: #2F4F4F;
+	color:white;
+	cursor: pointer;
+	opacity: 0.8;
+}

@@ -1,0 +1,112 @@
+  <div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Menú principal SORADMIN</h4>
+        </div>
+        <div class="panel-body pointer noselect">
+            <div class="panel-group" id="accordion">
+              
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
+                  <h4 class="panel-title menu-item1">Elementos PC</h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-if="main.funcionalidades[3].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[3].url)"> > {{main.funcionalidades[3].nombre}}</li>
+                     <li class="list-group-item menu-item2" ng-if="main.funcionalidades[4].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[4].url)"> > {{main.funcionalidades[4].nombre}}</li>
+                      <li class="list-group-item menu-item2" ng-if="main.funcionalidades[6].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[6].url)"> > {{main.funcionalidades[6].nombre}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2">
+                  <h4 class="panel-title menu-item1">Administrativo</h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-if="main.funcionalidades[0].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[0].url)"> > Grupos</li>
+                    <li class="list-group-item menu-item2" ng-if="main.funcionalidades[2].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[2].url)"> > {{main.funcionalidades[2].nombre}}</li>
+  					        <li class="list-group-item menu-item2" ng-if="main.funcionalidades[1].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[1].url)"> > {{main.funcionalidades[1].nombre}}</li>
+  					        <li class="list-group-item menu-item2" ng-click="main.goTo()"> > Procesos a Iniciar x Grupo</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
+                  <h4 class="panel-title menu-item1">Legal</h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <ul class="list-group">
+                  <!--  <li class="list-group-item menu-item2"> > Ficha Jurídica</li>-->
+                    <li class="list-group-item menu-item2"> > Garantías</li>
+                  </ul>
+                </div>
+              </div>
+             <!--
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4">
+                  <h4 class="panel-title menu-item1">Consulta de Cliente</h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.funcionalidades[7].url)"> > Consulta de Cliente</li>
+                  </ul>
+                </div>
+              </div>
+              -->
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse5">
+                  <h4 class="panel-title menu-item1">Patrimonio Técnico</h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-if="main.funcionalidades[5].consultar == 'S'" ng-click="main.goTo(main.funcionalidades[5].url)"> > {{main.funcionalidades[5].nombre}}</li>
+                  </ul>
+                </div>
+              </div> 
+              <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse6">
+                  <h4 class="panel-title menu-item1">Seguridad</h4>
+                </div>
+                <div id="collapse6" ng-if="main.funcionalidades[8].consultar == 'S'" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.segFuncionalidades)"> > Administración de funcionalidades</li>
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.segCampos)"> > Administración de campos</li>
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.segRoles)"> > Administración de roles</li>
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.segFuncRoles)"> > Administración de funcionalidades por rol</li>
+                    <li class="list-group-item menu-item2" ng-click="main.goTo(main.grupos)"> > Administración de grupos</a></li>
+                  </ul>
+                </div>
+              </div> 
+               <!--
+               <div class="panel panel-default">
+                <div class="panel-heading item" data-toggle="collapse" data-parent="#accordion" data-target="#collapse6">
+                  <h4 class="panel-title menu-item1">Concepto Comercial</h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item menu-item2" ng-click="main.goTo()"> > Concepto Comercial</li>
+                  </ul>
+                </div>
+              </div> 
+                -->                
+            </div>
+
+            <button class="btn btn-primary" ng-click="main.logout()">Cerrar sesión</button>
+        </div>
+    </div>
+</div> 	
+
+<!--
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Menú principal</h4>
+        </div>
+        <div class="panel-body">
+            <a class="pointer" ng-repeat="func in main.funcionalidades" ng-if="func.consultar == 'S'" ng-click="main.goTo(func.url)">{{func.nombre}}<br/></a><br/>
+            <button class="btn btn-primary" ng-click="main.logout()">Cerrar sesión</button>
+        </div>
+    </div>
+</div>
+-->

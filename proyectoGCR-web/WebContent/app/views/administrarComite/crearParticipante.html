@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Crear participante</div>
+		  <div class="panel-body">
+			<form  role="form" role="form" name="crearParticipanteForm" ng-if="crearParticipante.func.fCrear == 'S' && !crearParticipante.error" novalidate>
+				<div class="row" style="width: 50%;" >
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="form-group" >
+						      <div class="form-group" ng-class="{'has-error': crearParticipanteForm.varTipoParticipante.$error.required && crearParticipanteForm.varTipoParticipante.$touched}">
+							      <label for="varTipoParticipante">Tipo participante</label>
+							       <select name="varTipoParticipante" class="form-control" ng-model="
+							       crearParticipante.participanteComite.tipoParticipante.idListaProceso" required>
+				                   		<option ng-repeat="dato in crearParticipante.tipoParticipantes" value="{{dato.idListaProceso}}">{{dato.descripcion}}</option>
+								   </select>
+								   <small ng-show="crearParticipanteForm.varTipoParticipante.$error.required && crearParticipanteForm.varTipoParticipante.$touched">Por favor ingresar tipo participante del participante</small>
+							   </div>
+							   <div class="form-group" ng-class="{'has-error': crearParticipanteForm.varTipoIdentificacion.$error.required && crearParticipanteForm.varTipoIdentificacion.$touched}">
+							      <label for="varTipoIdentificacion">Tipo identificación participante</label>
+							       <select name="varTipoIdentificacion" class="form-control" id="tipoIdentificacion" ng-model=" crearParticipante.participanteComite.tipoIdentificacion.idListaProceso" required>
+				                   		<option ng-repeat="dato in crearParticipante.tipoIdentificaciones" value="{{dato.idListaProceso}}">{{dato.descripcion}}</option>
+								   </select>
+								    <small ng-show="crearParticipanteForm.varTipoIdentificacion.$error.required && crearParticipanteForm.varTipoIdentificacion.$touched">Por favor ingresar tipo identificación del participante</small>
+							   </div>
+								 
+								<div class="form-group" ng-class="{'has-error': crearParticipanteForm.varNumeroIdentificacion.$error.required && crearParticipanteForm.varNumeroIdentificacion.$touched}"> 
+							      	 <label for="varNumeroIdentificacion">No. identificación Participante</label>
+							     	 <input name="varNumeroIdentificacion" type="text" class="form-control" ng-model="crearParticipante.participanteComite.numeroIdentificacion" maxlength='20' required />
+							     	 <small ng-show="crearParticipanteForm.varNumeroIdentificacion.$error.required && crearParticipanteForm.varNumeroIdentificacion.$touched">Por favor ingresar número de identificación del participante</small>
+								</div>
+						       <div class="form-group" ng-class="{'has-error': crearParticipanteForm.varNombre.$error.required && crearParticipanteForm.varNombre.$touched}">
+								 <label for="varNombre">Nombre participante</label>
+						     	 <input name="varNombre" type="text" class="form-control" ng-model="crearParticipante.participanteComite.nombre" maxlength='150' required/>
+						     	 <small ng-show="crearParticipanteForm.varNombre.$error.required && crearParticipanteForm.varNombre.$touched">Por favor ingresar nombre del participante</small>
+								</div>
+								<div class="form-group">
+								 <label for="name">Cargo</label>
+						     	 <input name="varCodigo" type="text" class="form-control" ng-model="crearParticipante.participanteComite.cargo" maxlength='100' />
+								<div class="form-group" ng-class="{'has-error':  crearParticipanteForm.varEmail.$touched &&crearParticipanteForm.varEmail.$error.email}">
+									<label for="name">Email</label>
+									<input name="varEmail" type="email" class="form-control" ng-model="crearParticipante.participanteComite.email" maxlength='100' required/>
+									<small ng-if="crearParticipanteForm.varEmail.$touched && crearParticipanteForm.varEmail.$error.email">Por favor ingrese un correo válido</small>
+								</div>
+		 						<div class="form-group">
+								 	<label for="name" >Usuario BPM</label>						      		
+						      			<input name="usuarioBpm" type="text" class="form-control" ng-model="crearParticipante.participanteComite.usuarioBpm" maxlength='100' />
+								</div>
+					      	</div>
+					      </div>				  
+						<div class="form-group">
+					    	<button class="btn btn-primary" ng-click="crearParticipante.regresar()" >Atrás</button>	
+					    	<button class="btn btn-primary" ng-click="crearParticipante.crearParticipante(!(crearParticipanteForm.varEmail.$error.email || crearParticipanteForm.varTipoParticipante.$invalid || crearParticipanteForm.varTipoIdentificacion.$invalid || crearParticipanteForm.varNumeroIdentificacion.$invalid || crearParticipanteForm.varNombre.$invalid))" ng-disabled="crearParticipanteForm.varEmail.$error.email || crearParticipanteForm.varTipoParticipante.$invalid || crearParticipanteForm.varTipoIdentificacion.$invalid || crearParticipanteForm.varNumeroIdentificacion.$invalid || crearParticipanteForm.varNombre.$invalid" >Guardar</button>	
+					    		<br />
+					    </div>
+				     </div>
+				</form>
+				<button class="btn btn-primary" ng-if="crearParticipante.func.fCrear != 'S' || crearParticipante.error" ng-click="crearParticipante.regresar()" >Atrás</button>	
+			</div>
+		</div>
+	</div>
+</div>

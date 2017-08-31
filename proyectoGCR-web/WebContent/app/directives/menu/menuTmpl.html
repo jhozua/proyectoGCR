@@ -1,0 +1,71 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-if="menuCtrl.show">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+      	<img id="brand-image" src="assets/img/logo_avvillas.png" />
+<!--       	<img id="brand-image" src="assets/img/logo_bogota.png" /> -->
+<!--       	<img id="brand-image" src="assets/img/logo_occidente.png" /> -->
+<!--       	<img id="brand-image" src="assets/img/logo_popular.png" /> -->
+      </a>
+    </div>
+    <ul class="nav navbar-nav pointer">
+      <li class="active"><a ng-click="menuCtrl.irA(menuCtrl.returnMain)">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Elementos PC
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[3].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[3].url)"> > {{menuCtrl.funcionalidades[3].nombre}}</a></li>
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[4].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[4].url)"> > {{menuCtrl.funcionalidades[4].nombre}}</a></li>
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[6].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[6].url)"> > {{menuCtrl.funcionalidades[6].nombre}}</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Administrativo
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[0].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[0].url)"> > {{menuCtrl.funcionalidades[0].nombre}}</a></li>      
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[2].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[2].url)"> > {{menuCtrl.funcionalidades[2].nombre}}</a></li>
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[1].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[1].url)"> > {{menuCtrl.funcionalidades[1].nombre}}</a></li>
+          <li><a class="menu-item2" ng-click="menuCtrl.irA()"> > Procesos a Iniciar x Grupo</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Legal
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="menu-item2" ng-click=""> > Garantías</a></li>
+        </ul>
+      </li>
+      <!--
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Consulta de Cliente
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[7].url)"> > Consulta de Cliente</a></li>
+        </ul>
+      </li>
+      -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Patrimonio Técnico
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="menu-item2" ng-if="menuCtrl.funcionalidades[5].consultar == 'S'" ng-click="menuCtrl.irA(menuCtrl.funcionalidades[5].url)"> > {{menuCtrl.funcionalidades[5].nombre}}</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Seguridad
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu" ng-if="menuCtrl.funcionalidades[8].consultar == 'S'">
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.segFuncionalidades)"> > Administración de funcionalidades</a></li>
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.segCampos)"> > Administración de campos</a></li>
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.segRoles)"> > Administración de roles</a></li>
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.segFuncRoles)"> > Administración de funcionalidades por rol</a></li>
+          <li><a class="menu-item2" ng-click="menuCtrl.irA(menuCtrl.grupos)"> > Administración de grupos</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right pointer">
+      <li><a ng-click="menuCtrl.logout()" >Cerrar Sesión</a></li>
+    </ul>
+  </div>
+</nav>

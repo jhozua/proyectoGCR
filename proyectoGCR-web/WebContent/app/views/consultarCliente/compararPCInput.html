@@ -1,0 +1,117 @@
+<div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Comparar PC - Selección</div>
+	  <div class="panel-body">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<form class="form-horizontal" role="form" name="compararPCClienteForm" novalidate>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Tipo Identificación</label>
+							<div class="col-md-3" ng-class="{ 'has-error': compararPCClienteForm.tipoIdentificacion.$touched && compararPCClienteForm.tipoIdentificacion.$invalid }">
+								<input type="text" class="form-control" id="tipoIdentificacion" name="numeroIdentificacion" ng-model="compararPCInput.empresaPC.tipoIdentificacion.descripcion" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="numIdentificacion" class="col-md-2 control-label">Número Identificación</label>
+							<div class="col-md-3" ng-class="{ 'has-error': compararPCClienteForm.numeroIdentificacion.$touched && compararPCClienteForm.numeroIdentificacion.$invalid }">
+								<input type="text" class="form-control" id="numIdentificacion" name="numeroIdentificacion" ng-model="compararPCInput.empresaPC.numeroIdentificacion" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nombreEmpresa" class="col-md-2 control-label">Nombre Empresa</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control" id="nombreEmpresa" ng-model="compararPCInput.empresaPC.nombreEmpresa" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="numeroPC" class="col-md-2 control-label">PC en Firme</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control" id="numeroPC" ng-model="compararPCInput.empresaPC.numeroPC" readonly>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-6">
+							<form class="form-horizontal" role="form" name="compararPCSolicitudLeftForm" novalidate>
+								<div class="form-group">
+									<br>
+									<label class="col-md-4 control-label">Solicitud</label>
+									<div class="col-md-6" ng-class="{ 'has-error': compararPCSolicitudLeftForm.solicitudLeft.$touched && compararPCSolicitudLeftForm.solicitudLeft.$invalid }">
+										<select class="form-control" ng-model="compararPCInput.solicitudLeft" name="solicitudLeft" ng-options="item as item.numero for item in compararPCInput.listaSolicitudesLeft" required><option value="">-Seleccione-</option></select>
+										<p class="help-block" ng-class="{'hidden-element': !(compararPCSolicitudLeftForm.solicitudLeft.$touched && compararPCSolicitudLeftForm.solicitudLeft.$invalid)}">Solicitud es requerido.</p>
+									</div>
+								</div>
+								<p>Seleccione la versión de su interés:</p>
+								<table class="table table-hover table-bordered">
+									<thead class="table-compararPC">
+										<tr>
+											<th class="col-sm-1">
+												<span>Seleccionar</span>
+											</th>
+											<th class="col-sm-2" ng-repeat="col in compararPCInput.columnasSolicitud" ng-click="compararPCInput.doSort(col.property)">{{col.label}}
+												<span ng-show="!compararPCInput.reverse && compararPCInput.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+												<span ng-show="compararPCInput.reverse && compararPCInput.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in compararPCInput.tableDataLeft | orderBy:compararPCInput.sortBy:compararPCInput.reverse">
+											<td><input type="radio" ng-model="compararPCInput.selectedLeft" ng-value="item">
+											</td>
+											<td align="center" ng-repeat="col in compararPCInput.columnasSolicitud">
+												{{item[col.property]}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+						<div class="col-md-6">
+							<form class="form-horizontal" role="form" name="compararPCSolicitudRightForm" novalidate>
+								<div class="form-group">
+									<br>
+									<label class="col-md-4 control-label">Solicitud</label>
+									<div class="col-md-6" ng-class="{ 'has-error': compararPCSolicitudRightForm.solicitudRight.$touched && compararPCSolicitudRightForm.solicitudRight.$invalid }">
+										<select class="form-control" ng-model="compararPCInput.solicitudRight" name="solicitudRight" ng-options="item as item.numero for item in compararPCInput.listaSolicitudesRight" required><option value="">-Seleccione-</option></select>
+										<p class="help-block" ng-class="{'hidden-element': !(compararPCSolicitudRightForm.solicitudRight.$touched && compararPCSolicitudRightForm.solicitudRight.$invalid)}">Solicitud es requerido.</p>
+									</div>
+								</div>
+								<p>Seleccione la versión de su interés:</p>
+								<table class="table table-hover table-bordered">
+									<thead class="table-compararPC">
+										<tr>
+											<th class="col-sm-1">
+												<span>Seleccionar</span>
+											</th>
+											<th class="col-sm-2" ng-repeat="col in compararPCInput.columnasSolicitud" ng-click="compararPCInput.doSort(col.property)">{{col.label}}
+												<span ng-show="!compararPCInput.reverse && compararPCInput.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+												<span ng-show="compararPCInput.reverse && compararPCInput.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in compararPCInput.tableDataRight | orderBy:compararPCInput.sortBy:compararPCInput.reverse">
+											<td><input type="radio" ng-model="compararPCInput.selectedRight" ng-value="item">
+											</td>
+											<td align="center" ng-repeat="col in compararPCInput.columnasSolicitud">
+												{{item[col.property]}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<button class="btn btn-primary" ng-click="compararPCInput.atrasConsultarCliente()" >Atrás</button>
+				<button class="btn btn-primary" ng-click="compararPCInput.compararPCs()" ng-disabled="compararPCSolicitudLeftForm.$invalid || compararPCSolicitudRightForm.$invalid ">Comparar</button>
+			</div>
+	  </div>
+	</div>
+</div>

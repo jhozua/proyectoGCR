@@ -1,0 +1,66 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4>Administrar Líneas</h4>
+		</div>
+		<div class="panel-body">
+            <div name="contenido" ng-if="administrarLinea.func.fConsultar == 'S' && !administrarLinea.error">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Líneas
+                        <span ng-click="administrarLinea.irCrearLinea()" ng-disabled="administrarLinea.func.fCrear!='S'" class="glyphicon glyphicon-plus btn botonEliminar"
+                            data-placement="top" title="Crear Línea" onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+                    </div>
+                    <table id="table_lineas" class="table table-fixed table_lineas">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2" ng-repeat="col in administrarLinea.tableColumns.lineas" ng-if="col.visible=='S' || (!col.property  && administrarLinea.func.fActualizar=='S' )" ng-click="administrarLinea.doSort(col.property, col.subProperty)">{{col.label}}
+                                    <span ng-show="!administrarLinea.reverse && col.property && ((!col.subProperty && administrarLinea.sortBy == col.property)
+                                        ||(col.subProperty && administrarLinea.sortBy.split('.')[0] == col.property && administrarLinea.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                        <span ng-show="administrarLinea.reverse && col.property && ((!col.subProperty && administrarLinea.sortBy == col.property)
+                                        ||(col.subProperty && administrarLinea.sortBy.split('.')[0] == col.property && administrarLinea.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tipoLinea in administrarLinea.lineas | orderBy:administrarLinea.sortBy:administrarLinea.reverse" ng-click="administrarLinea.cargarModalidadesRelacionadas(tipoLinea)"
+                                ng-class="{'selected':tipoLinea.idTipoLinea == administrarLinea.lineaSeleccionada.idTipoLinea}">
+                                <td ng-repeat="param in administrarLinea.tableColumns.lineas" ng-if="param.visible=='S' || (!param.property  && administrarLinea.func.fActualizar=='S')">
+                                    <span ng-if="param.subProperty">{{tipoLinea[param.property][param.subProperty]}}</span>
+                                    <span ng-if="!param.subProperty">{{tipoLinea[param.property]}}</span>
+                                    <span ng-if="!param.property" class="glyphicon glyphicon-pencil" ng-click="administrarLinea.irEdicionLinea(tipoLinea)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                </div>
+                <br/>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Modalidades a las que se encuentra asociada la línea <span ng-show="administrarLinea.lineaSeleccionada">'{{administrarLinea.lineaSeleccionada.nombreCorto}}'</span></div>
+                    <table id="table_modalidades_relacionadas" class="table table-fixed table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2" ng-repeat="col in administrarLinea.tableColumns.modalidades" ng-if="col.visible == 'S'" ng-click="administrarLinea.doSortMod(col.property, col.subProperty)">{{col.label}}
+                                    <span ng-show="!administrarLinea.reverseMod && ((!col.subProperty && administrarLinea.sortByMod == col.property)
+                                        ||(col.subProperty && administrarLinea.sortByMod.split('.')[0] == col.property && administrarLinea.sortByMod.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                        <span ng-show="administrarLinea.reverseMod && ((!col.subProperty && administrarLinea.sortByMod == col.property)
+                                        ||(col.subProperty && administrarLinea.sortByMod.split('.')[0] == col.property && administrarLinea.sortByMod.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tipoModalidad in administrarLinea.modalidadesRelacionadas | orderBy:administrarLinea.sortByMod:administrarLinea.reverseMod">
+                                <td ng-repeat="param in administrarLinea.tableColumns.modalidades" ng-if="param.visible == 'S'">
+                                    <span ng-if="param.subProperty && !param.check">{{tipoModalidad[param.property][param.subProperty]}}</span>
+                                    <span ng-if="!param.subProperty && !param.check">{{tipoModalidad[param.property]}}</span>
+                                    <input ng-if="param.check " type="checkbox" disabled="disabled" ng-model="tipoModalidad.fPaquete" ng-true-value="'S'" ng-false-value="'N'" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+		    <button class="btn btn-primary" ng-click="administrarLinea.salirMenu()">Salir</button>
+		</div>
+	</div>
+</div>

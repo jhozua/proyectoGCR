@@ -1,0 +1,466 @@
+{
+  "columns": {
+        "DEFAULT": [
+      {
+        "nombre": "Arbol",
+        "propiedad": "name",
+        "width": "400"
+      },
+      {
+        "nombre": "Tipo Suma",
+        "propiedad": "tipoSuma",
+        "width": "65"
+      },
+      {
+        "nombre": "Moneda",
+        "propiedad": "moneda",
+        "width": "55"
+      },
+      {
+        "nombre": "LEP",
+        "propiedad": "lep",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "LEA",
+        "propiedad": "lea",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Utilizado",
+        "propiedad": "montoUtilizado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Protegido",
+        "propiedad": "montoProtegido",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Reservado",
+        "propiedad": "montoReservado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Disponible",
+        "propiedad": "montoDisponible",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Plazo Máximo",
+        "propiedad": "plazoMaximo",
+        "width": "90"
+      },
+      {
+        "nombre": "Unidad Plazo",
+        "propiedad": "unidadPlazo",
+        "width": "90"
+      },
+      {
+        "nombre": "Naturaleza",
+        "propiedad": "naturaleza",
+        "width": "120"
+      },
+      {
+        "nombre": "Fecha Vigencia",
+        "propiedad": "fechaVigencia",
+        "width": "100"
+      }
+    ],
+    "DRAFT": [
+      {
+        "nombre": "Arbol",
+        "propiedad": "name",
+        "width": "400"
+      },
+      {
+        "nombre": "Tipo Suma",
+        "propiedad": "tipoSuma",
+        "width": "65"
+      },
+      {
+        "nombre": "Moneda",
+        "propiedad": "moneda",
+        "width": "55"
+      },
+      {
+        "nombre": "LEP",
+        "propiedad": "lep",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Utilizado",
+        "propiedad": "montoUtilizado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Protegido",
+        "propiedad": "montoProtegido",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Reservado",
+        "propiedad": "montoReservado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Disponible",
+        "propiedad": "montoDisponible",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Plazo Máximo",
+        "propiedad": "plazoMaximo",
+        "width": "90"
+      },
+      {
+        "nombre": "Unidad Plazo",
+        "propiedad": "unidadPlazo",
+        "width": "90"
+      },
+      {
+        "nombre": "Naturaleza",
+        "propiedad": "naturaleza",
+        "width": "120"
+      },
+      {
+        "nombre": "Fecha Vigencia",
+        "propiedad": "fechaVigencia",
+        "width": "100"
+      }
+    ],
+    "ENFIRME": [
+      {
+        "nombre": "Arbol",
+        "propiedad": "name",
+        "width": "440"
+      },
+      {
+        "nombre": "Tipo Suma",
+        "propiedad": "tipoSuma",
+        "width": "70"
+      },
+      {
+        "nombre": "Moneda",
+        "propiedad": "moneda",
+        "width": "55"
+      },
+      {
+        "nombre": "LEA",
+        "propiedad": "lea",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Utilizado",
+        "propiedad": "montoUtilizado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Protegido",
+        "propiedad": "montoProtegido",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Reservado",
+        "propiedad": "montoReservado",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Monto Disponible",
+        "propiedad": "montoDisponible",
+        "width": "120",
+        "format": true
+      },
+      {
+        "nombre": "Plazo Máximo",
+        "propiedad": "plazoMaximo",
+        "width": "88"
+      },
+      {
+        "nombre": "Unidad Plazo",
+        "propiedad": "unidadPlazo",
+        "width": "90"
+      },
+      {
+        "nombre": "Naturaleza",
+        "propiedad": "naturaleza",
+        "width": "110"
+      },
+      {
+        "nombre": "Fecha Vigencia",
+        "propiedad": "fechaVigencia",
+        "width": "98"
+      }
+    ]
+  },
+  "contextMenu": [
+    {
+      "process": "SOLICITUD",
+      "type": "empresa",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "agregarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "empresa",
+      "milestone": "RAD",
+      "role": "analistaCredito",
+      "actions": [
+        "agregarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "empresa",
+      "milestone": "OTO",
+      "role": "asesorComercial",
+      "actions": [
+        "agregarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "empresa",
+      "milestone": "OTO",
+      "role": "analistaCredito",
+      "actions": [
+        "agregarModalidad",
+        "agregarPlantilla"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "modalidad",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "agregarModalidad",
+        "agregarLinea",
+        "habilitarModalidad",
+        "inhabilitarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "modalidad",
+      "milestone": "RAD",
+      "role": "analistaCredito",
+      "actions": [
+        "agregarModalidad",
+        "agregarLinea",
+        "eliminarModalidad",
+        "habilitarModalidad",
+        "inhabilitarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "modalidad",
+      "milestone": "OTO",
+      "role": "asesorComercial",
+      "actions": [
+        "agregarModalidad",
+        "agregarLinea",
+        "habilitarModalidad",
+        "inhabilitarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "modalidad",
+      "milestone": "OTO",
+      "role": "analistaCredito",
+      "actions": [
+        "agregarModalidad",
+        "agregarLinea",
+        "eliminarModalidad",
+        "habilitarModalidad",
+        "inhabilitarModalidad"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "linea",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "habilitarLinea",
+        "inhabilitarLinea"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "linea",
+      "milestone": "RAD",
+      "role": "analistaCredito",
+      "actions": [
+        "eliminarLinea",
+        "habilitarLinea",
+        "inhabilitarLinea"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "linea",
+      "milestone": "OTO",
+      "role": "asesorComercial",
+      "actions": [
+        "habilitarLinea",
+        "inhabilitarLinea"
+      ]
+    },
+    {
+      "process": "SOLICITUD",
+      "type": "linea",
+      "milestone": "OTO",
+      "role": "analistaCredito",
+      "actions": [
+        "eliminarLinea",
+        "habilitarLinea",
+        "inhabilitarLinea"
+      ]
+    },
+    {
+      "process": "DESEMBOLSO",
+      "type": "modalidad",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "nuevoDesembolso"
+      ]
+    },
+    {
+      "process": "DESEMBOLSO",
+      "type": "linea",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "nuevoDesembolso"
+      ]
+    },
+    {
+      "process": "DESEMBOLSO",
+      "type": "modComparte",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "nuevoDesembolso"
+      ]
+    },
+    {
+      "process": "DESEMBOLSO",
+      "type": "lineaComparte",
+      "milestone": "RAD",
+      "role": "asesorComercial",
+      "actions": [
+        "nuevoDesembolso"
+      ]
+    }    
+  ],
+  "contextMenuActions": [
+    {
+      "text": "Agregar Plantilla",
+      "action": "agregarPlantilla"
+    },
+    {
+      "text": "Agregar Línea",
+      "action": "agregarLinea"
+    },
+    {
+      "text": "Agregar Modalidad",
+      "action": "agregarModalidad"
+    },
+    {
+      "text": "Eliminar Modalidad",
+      "action": "eliminarModalidad"
+    },
+    {
+      "text": "Inhabilitar Modalidad",
+      "action": "inhabilitarModalidad"
+    },
+    {
+      "text": "Habilitar Modalidad",
+      "action": "habilitarModalidad"
+    },
+    {
+      "text": "Eliminar Línea",
+      "action": "eliminarLinea"
+    },
+    {
+      "text": "Inhabilitar Línea",
+      "action": "inhabilitarLinea"
+    },
+    {
+      "text": "Habilitar Línea",
+      "action": "habilitarLinea"
+    },
+    {
+      "text": "Nuevo Desembolso",
+      "action": "nuevoDesembolso"
+    }
+  ],
+  "parentModeAction": "agregarModalidad",
+  "disabledAction": {
+    "habilitarLinea": true,
+    "inhabilitarLinea": false,
+    "habilitarModalidad": true,
+    "inhabilitarModalidad": false
+  },
+  "subtotalColumns": [
+    {
+      "propiedad": "lep"
+    },
+    {
+      "propiedad": "lea"
+    },
+    {
+      "propiedad": "montoUtilizado"
+    },
+    {
+      "propiedad": "montoProtegido"
+    },
+    {
+      "propiedad": "montoReservado"
+    },
+    {
+      "propiedad": "montoDisponible"
+    }
+  ],
+  "monedaTRM": {
+    "propiedad": "trm",
+    "moneda": "USD"
+  },
+  "colorNode": [
+    {
+      "id": "0",
+      "color": "red"
+    },
+    {
+      "id": "1",
+      "color": "blue"
+    },
+    {
+      "id": "2",
+      "color": "green"
+    }
+  ],
+  "colorNegativeCellValue": "red"
+}

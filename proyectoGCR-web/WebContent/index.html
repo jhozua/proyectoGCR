@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SOR ADMIN</title>
+
+	<!-- Referencia Hojas de estilos CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/avvillas.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/bogota.css"> -->
+<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/occidente.css"> -->
+<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/popular.css"> -->
+	<link rel="stylesheet" type="text/css" href="assets/css/adminBusiness.css">
+	<link rel="stylesheet" type="text/css" href="app/directives/treeTable/assets/css/treeTable.css">
+	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+
+	<link rel="shortcut icon" href="assets/img/faviconVillas.ico">
+<!-- 	<link rel="shortcut icon" href="assets/img/faviconBogota.ico"> -->
+<!-- 	<link rel="shortcut icon" href="assets/img/faviconOccidente.ico"> -->
+<!-- 	<link rel="shortcut icon" href="assets/img/faviconPopular.ico"> -->
+
+	<!-- Referencia Librerias -->
+	<script type="text/javascript" src="assets/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/angular1.6.0/angular.min.js"></script>
+	<script type="text/javascript" src="assets/js/angular1.6.0/angular-route.min.js"></script>
+	
+	<!-- Referencia main APP -->
+	<script src="app/app.js"></script>	
+	<!-- Referencia Utils APP -->
+	<script src="app/util/constantes.js"></script>
+	<script src="app/util/mensajes.js"></script>
+	<script src="app/util/ngProgress.js"></script>
+	<!-- Referencia directivas APP -->
+	<script type="text/javascript" src="app/directives/gaModal/gaModal.js"></script>
+	<script type="text/javascript" src="app/directives/alerta/alerta.js"></script>
+	<script type="text/javascript" src="app/directives/utilitarios.js"></script>
+	<script type="text/javascript" src="app/directives/treeTable/treeTable.js"></script>
+	<script type="text/javascript" src="app/directives/treeTable/services/treeTableServices.js"></script>
+	<script type="text/javascript" src="app/directives/menu/menu.js"></script>
+	<!-- Referencia Servicios APP -->
+	<script src="app/services/adminBusinessServicioREST.js"></script>
+	<script src="app/services/adminBusinessServiciosComunes.js"></script>
+	<!-- Referencia Filtros APP -->
+	<script src="app/filters/adminBusinessFilters.js"></script>
+	<!-- Referencia Controladores APP-->
+	<script src="app/controllers/administrarComite/administrarComiteController.js"></script>
+	<script src="app/controllers/administrarComite/edicionComiteController.js"></script>
+	<script src="app/controllers/administrarComite/crearComiteController.js"></script>
+	<script src="app/controllers/administrarComite/agregarParticipanteController.js"></script>
+	<script src="app/controllers/administrarComite/administrarParticipanteController.js"></script>
+	<script src="app/controllers/administrarComite/crearParticipanteController.js"></script>	
+	<script src="app/controllers/administrarGrupos/administrarGruposController.js"></script>
+	<script src="app/controllers/administrarGrupos/agregarMiembrosGrupoController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/administrarModalidadController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/crearModalidadController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/editarModalidadController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/administrarLineaController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/crearLineaController.js"></script>
+	<script src="app/controllers/administrarModalidadLinea/editarLineaController.js"></script>
+	<script src="app/controllers/administrarPlantillas/administrarPlantillasController.js"></script>
+	<script src="app/controllers/administrarPlantillas/agregarPlantillasController.js"></script>
+	<script src="app/controllers/administrarPlantillas/editarPlantillasController.js"></script>
+	<script src="app/controllers/administrarPatrimonio/administrarPatrimonioController.js"></script>
+	<script src="app/controllers/administrarCUTPA/administrarCUTPAController.js"></script>
+	<script src="app/controllers/administrarCUTPA/agregarEmpresasController.js"></script>
+	<script src="app/controllers/administrarCUTPA/consultarEditarCUTPAController.js"></script>
+	<script src="app/controllers/administrarCUTPA/crearCUTPAController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarCamposFuncionalidadesController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarFuncionalidadesController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarRolesUsuariosController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarFuncionalidadesRolesController.js"></script>
+	<script src="app/controllers/administrarSeguridad/seguridadMainController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarGrupos/administrarGruposSeguridadController.js"></script>
+	<script src="app/controllers/administrarSeguridad/administrarGrupos/agregarGruposSeguridadController.js"></script>
+	<script src="app/controllers/main/loginController.js"></script>
+	<script src="app/controllers/main/mainController.js"></script>
+
+	<script src="app/controllers/consultarCliente/consultarClienteController.js"></script>
+	<script src="app/controllers/consultarCliente/consultarPCGrupoController.js"></script>
+	<script src="app/controllers/consultarCliente/compararPCInputController.js"></script>		
+
+	<script src="app/controllers/compararPC/compararPCController.js"></script>	
+</head>
+<body ng-app="adminBusinessModule">
+	<br>
+	<menu class="menu"></menu>
+	<br>
+	<alerta alert-data="notification"></alerta>
+	<ga-modal></ga-modal>
+   <div ng-view></div>
+</body>
+</html>

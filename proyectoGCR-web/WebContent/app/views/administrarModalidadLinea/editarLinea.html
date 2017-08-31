@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Editar Línea</h4>
+        </div>
+        <div class="panel-body">
+            <form ng-if="editarLinea.func.fActualizar=='S' && !editarLinea.error" class="form-horizontal" role="form" name="validarLinea" novalidate>
+				<div class="form-group" ng-repeat="campo in editarLinea.tableColumns.lineas" ng-if="campo.visible == 'S' && !campo.norepeat"
+				    ng-class="{ 'has-error': validarLinea.{{campo.property}}.$touched && validarLinea[campo.property].$invalid }">
+					<label for="{{campo.property}}" class="col-md-2 control-label">{{campo.label}}:</label>
+					<div class="col-md-3">
+						<input ng-if="campo.type=='text'" type="text" class="form-control" name="{{campo.property}}" placeholder="{{campo.label}}"
+						    ng-model="editarLinea.datoLinea[campo.property]" maxlength="{{campo.length}}" ng-disabled="campo.editable == 'N'"
+						    ng-required="campo.required">
+						<select ng-if="campo.type=='select'" name="{{campo.property}}" class="form-control" ng-options="item[campo.subProperty] for item in editarLinea[campo.property] track by item[campo.trackBy]"
+						    ng-model="editarLinea.datoLinea[campo.property]" ng-required="campo.required" />
+						<input ng-if="campo.type=='number'" type="number" class="form-control" id="{{campo.property}}" placeholder="Orden"
+						    ng-model="editarLinea.datoLinea[campo.property]" max="{{campo.max}}" min="{{campo.min}}"
+						    ng-required="campo.required">
+						<label ng-if="campo.check"><input type="checkbox" ng-model="editarLinea.datoLinea[campo.property]"
+									ng-true-value="'S'" ng-false-value="'N'"></label>
+						<p class="help-block" ng-if="validarLinea[campo.property].$touched && validarLinea[campo.property].$invalid">El campo '{{campo.label}}' es requerido.</p>
+					</div>
+				</div>
+				<div class="col-md-8">
+                    <button class="btn btn-primary" ng-click="editarLinea.salir()">Salir</button>
+                    <button class="btn btn-primary" ng-click="editarLinea.editarLinea()" ng-disabled="validarLinea.nombreCorto.$invalid || validarLinea.nombreLargo.$invalid" >Guardar</button>
+                </div>
+            </form>
+            <button ng-if="editarLinea.func.fActualizar!='S' || editarLinea.error" class="btn btn-primary" ng-click="editarLinea.salir()">Salir</button>
+        </div>
+    </div>
+</div>

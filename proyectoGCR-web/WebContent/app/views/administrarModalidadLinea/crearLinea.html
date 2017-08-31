@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Crear Línea</h4>
+        </div>
+        <div class="panel-body">
+            <form ng-if="crearLinea.func.fActualizar=='S' && !crearLinea.error" class="form-horizontal" role="form" name="validarLinea" novalidate>
+                <div class="form-group" ng-repeat="campo in crearLinea.tableColumns.lineas" ng-if="campo.visible == 'S' || campo.obligatorio == 'S'" ng-class="{ 'has-error': validarLinea.{{campo.property}}.$touched && validarLinea[campo.property].$invalid }">
+					<label for="{{campo.property}}" class="col-md-2 control-label">{{campo.label}}:</label>
+					<div class="col-md-3">
+						<input ng-if="campo.type=='text'" type="text" class="form-control" name="{{campo.property}}" placeholder="{{campo.label}}" ng-model="crearLinea.nuevaLinea[campo.property]"
+										maxlength="{{campo.length}}" ng-disabled="campo.editable == 'N'" ng-required="campo.obligatorio == 'S'">
+						<select ng-if="campo.type=='select'" name="{{campo.property}}" class="form-control" ng-options="item[campo.subProperty] for item in crearLinea[campo.property]" ng-model="crearLinea.nuevaLinea[campo.property]" ng-required="campo.obligatorio == 'S'" 
+						/>
+						<input ng-if="campo.type=='number'" type="number" class="form-control" id="{{campo.property}}" placeholder="Orden" ng-model="crearLinea.nuevaLinea[campo.property]"
+										max="{{campo.max}}" min="{{campo.min}}" ng-required="campo.obligatorio == 'S'">
+						<label ng-if="campo.check"><input type="checkbox" ng-init="crearLinea.nuevaLinea[campo.property]='N'" ng-model="crearLinea.nuevaLinea[campo.property]"
+									ng-true-value="'S'" ng-false-value="'N'"></label>
+							<p class="help-block" ng-if="validarLinea[campo.property].$touched && validarLinea[campo.property].$invalid">El campo '{{campo.label}}' es requerido.</p>
+					</div>
+				</div>
+				<div class="col-md-8">
+                    <button class="btn btn-primary" ng-click="crearLinea.salir()">Salir</button>
+                    <button class="btn btn-primary" ng-click="crearLinea.crearNuevaLinea()" ng-disabled="validarLinea.codigoLinea.$invalid || validarLinea.nombreCorto.$invalid || validarLinea.nombreLargo.$invalid">Guardar</button>
+                </div>
+            </form>
+            <button ng-if="crearLinea.func.fActualizar!='S' || crearLinea.error" class="btn btn-primary" ng-click="crearLinea.salir()">Salir</button>
+        </div>
+    </div>
+</div>

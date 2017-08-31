@@ -1,0 +1,270 @@
+html {
+    font-family: Lato;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%}
+.checkboxEliminar {
+	padding-left: 7px;
+}
+
+.consultarGrupo {
+	margin-left: 40%;
+}
+
+.eliminarColumn {
+	min-width: 100px;
+}
+
+.estiloPaginacion {
+	text-align: center;
+	cursor: pointer;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+.editarEliminarGrupo {
+	float: right;
+}
+
+.botonEliminar {
+	background-color: inherit;
+	border: none;
+	float: right;
+	right: 2.8%;
+	margin-top: -5px;
+}
+
+.orderIcon {
+	left: 10px;
+	background-color: inherit;
+	border: none;
+}
+
+.textCenter {
+	text-align: center;
+}
+
+.a {
+	border: 1px solid;
+	border-color: #E6E6E6;
+}
+
+.table>tbody>tr>td {
+	vertical-align: middle;
+}
+
+.table th {
+	cursor: pointer;
+	text-align: center;
+	font-weight: 900;
+	background-color: #FAFAFA;
+}
+
+.table td {
+	cursor: pointer;
+	text-align: center;
+}
+
+.table th:hover {
+	background-color: #E6E6E6;
+}
+
+select::-ms-expand {
+	border: none;
+	background: inherit;
+}
+
+.multiline-btn {
+	white-space: initial;
+}
+
+.auto-scroll-x {
+	overflow: auto;
+}
+
+.table-container {
+	margin-top: 20px;
+}
+
+ga-modal .modal {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.wrapper-lineas {
+	max-height: 300px;
+	overflow: auto;
+}
+
+.form-group.has-error small {
+    color: #a94442;
+}
+
+.error-table{
+    color: #a94442;
+    text-align: left;
+}
+
+.page-link-disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* Styling for the ngProgress itself */
+#ngProgress {
+    margin: 0;
+    padding: 0;
+    z-index: 99998;
+    background-color: #e2001a;
+    color: #e2001a;
+    box-shadow: 0 0 10px 0; /* Inherits the font color */
+    height: 2px;
+    opacity: 0;
+
+    /* Add CSS3 styles for transition smoothing */
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Styling for the ngProgress-container */
+#ngProgress-container {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+}
+
+.selected {
+    background-color:rgba(180, 200, 255, 0.6);
+    color:#555555;
+}
+
+.wrapper-lineas { max-height: 400px; overflow: auto; }
+
+.table-select-field {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.table-select-field.error{
+    border-bottom: 1px solid #a94442;
+}
+
+.lineainactiva{
+	color:#999999;
+}
+
+.table-fixed {
+	table-layout: fixed;
+    border-collapse: collapse;
+	text-align: left;
+}
+
+.table-fixed tbody {
+    display:block;
+    max-height:320px;
+    overflow:auto;
+	
+}
+.table-fixed thead, .table-fixed tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+	word-wrap: break-word;
+}
+
+.table-fixed thead{
+	width: calc(100% - 17px);
+}
+
+.table-small{
+    display: block;
+    max-height: 230px;
+    overflow:auto;
+    width:100%;
+    word-wrap: break-word;
+}
+
+.table-compararPC {
+    font-size: smaller;
+}
+
+.hidden-element{
+    display: block!;
+    visibility: hidden;
+ }
+
+.wide{
+	width: calc(100% - 17px);
+}
+
+.center {
+    align-items: center;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.panel-height{
+	min-height: 200px;
+	max-height: 350px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	text-align: center;
+    font-size: smaller;
+ 	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.input-consec {
+  background-color: transparent;
+  border-width:0px;
+  border: none;
+  text-align: center;
+}
+.menu {
+    padding-left: 0px;
+}
+
+.menu-item1 {
+    padding-left: 50px;
+}
+
+.menu-item2 {
+    padding-left: 100px;
+}
+
+.menu-item2:hover {
+    background-color: #FDFDFD;
+    font-weight: bold;
+}
+
+.item:hover {
+    background-color: #E6E6E6;
+}

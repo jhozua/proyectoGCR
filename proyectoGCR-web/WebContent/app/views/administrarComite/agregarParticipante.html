@@ -1,0 +1,107 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Agregar participantes</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12 col-md-4">
+					<div class="form-group">
+						<label for="tipodoc">Tipo identificación</label>
+						<select class="form-control" name="tipodoc" ng-model="agregarParticipantes.filtroTipodoc">
+							<option value="" disabled selected>Seleccione...</option>
+							<option ng-repeat="tipo in agregarParticipantes.listaTipoDocumento" value="{{tipo.codigoParametro}}">{{tipo.descripcion}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="numdoc">No. Identificación</label>
+						<input class="form-control" type="text" name="numdoc" ng-model="agregarParticipantes.filtroNumdoc">
+					</div>
+					<div class="form-group">
+						<label for="nombrep">Nombre participante</label>
+						<input class="form-control" type="text" name="nombrep" ng-model="agregarParticipantes.filtroNombre">
+					</div>
+				</div>
+				<div class="row col-xs-12">
+					<div class="col-xs-12 col-md-4 col-md-offset-4">
+						<button class="btn btn-primary btn-block" ng-click="agregarParticipantes.consultar()">Consultar</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-primary table-container">
+				<div class="panel-heading">
+					Participantes
+					<span ng-click="agregarParticipantes.irCrearParticipante()" class="glyphicon glyphicon-plus btn botonEliminar" data-placement="top" title="Crear nuevo participante" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+					<span ng-if="agregarParticipantes.datosTabla.datos" ng-click="agregarParticipantes.agregarSeleccion()" class="glyphicon glyphicon-ok btn botonEliminar" data-placement="top" title="Agregar al comite la selección" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th >Agregar a comité <span><input type="checkbox" aria-label="checkbox" ng-change="agregarParticipantes.checkAll(agregarParticipantes.checkAllFlag)" ng-model="agregarParticipantes.checkAllFlag" ng-true-value="true" ng-false-value="false"></span></th>
+								<th ng-click="agregarParticipantes.doSort('tipoParticipante.descripcion')">Tipo participante
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'tipoParticipante.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'tipoParticipante.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('tipoIdentificacion.descripcion')">Tipo identificación
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('numeroIdentificacion')">No. Identificación
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('nombre')">Nombre
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('email')">Email
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'email'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'email'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('cargo')">Cargo
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'cargo'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'cargo'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+								<th ng-click="agregarParticipantes.doSort('usuarioBpm')">Usuario BPM
+								            	<span ng-show="!agregarParticipantes.reverse && agregarParticipantes.sortBy == 'usuarioBpm'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+				        						<span ng-show="agregarParticipantes.reverse && agregarParticipantes.sortBy == 'usuarioBpm'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="!agregarParticipantes.datosTabla.datos || !agregarParticipantes.datosTabla.datos.length"><td colspan="8" class="text-center">No hay datos</td></tr>
+							<tr ng-repeat="p in agregarParticipantes.datosTabla.datos  | orderBy: agregarParticipantes.sortBy:agregarParticipantes.reverse">
+								<td class="text-center">
+									<input type="checkbox"  
+									ng-checked="p.marcado" ng-model="p.marcado">
+								</td>
+								<td>{{p.tipoParticipante.descripcion}}</td>
+								<td>{{p.tipoIdentificacion.descripcion}}</td>
+								<td>{{p.numeroIdentificacion}}</td>
+								<td>{{p.nombre}}</td>
+								<td>{{p.email}}</td>
+								<td>{{p.cargo}}</td>
+								<td>{{p.usuarioBpm}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="estiloPaginacion" ng-show="agregarParticipantes.datosTabla.totalPaginas > 0">
+			      		<nav aria-label="Page navigation">
+			      			<ul class="pagination">
+				    			<li>
+				      				<a ng-class="{'page-link-disabled': agregarParticipantes.datosTabla.paginaSolicitada === 1}" 
+				      					ng-click="agregarParticipantes.consultar(agregarParticipantes.datosTabla.paginaSolicitada-1)" aria-label="Previous">
+				        				<span aria-hidden="true">&laquo;</span>
+				      				</a>
+				    			</li>
+				    			<li ng-class="{active: $index+1 == agregarParticipantes.datosTabla.paginaSolicitada}" ng-repeat="page in agregarParticipantes.paginas track by $index">
+				    				<span ng-click="agregarParticipantes.consultar($index+1)">{{$index+1}}</span>
+				    			</li>
+				    			<li>
+				      				<a ng-class="{'page-link-disabled': agregarParticipantes.datosTabla.paginaSolicitada === agregarParticipantes.datosTabla.totalPaginas}" 
+				      					ng-click="agregarParticipantes.consultar(agregarParticipantes.datosTabla.paginaSolicitada+1)" aria-label="Next">
+				        				<span aria-hidden="true">&raquo;</span>
+				      				</a>
+				    			</li>
+				  			</ul>
+				  		</nav>
+				 	</div>
+				 <div/>
+				 <button class="btn btn-primary" ng-click="agregarParticipantes.salir()" >Atrás</button>
+			</div>
+		</div>
+	</div>
+</div>

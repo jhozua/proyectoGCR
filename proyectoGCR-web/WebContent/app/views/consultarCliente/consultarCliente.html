@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<div class="panel panel-primary" ng-hide="adminGrupos.variables.showDetalleGrupo">
+	<div class="panel-heading">Consultar Cliente</div>
+	  <div class="panel-body">
+			<form class="form-horizontal" role="form" name="consultarClienteForm" novalidate>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Tipo Identificación</label>
+					<div class="col-md-3" ng-class="{ 'has-error': consultarClienteForm.tipoIdentificacion.$touched && consultarClienteForm.tipoIdentificacion.$invalid }">
+						<select class="form-control" ng-model="consultarCliente.paramsConsulta.tipoIdentificacion" name="tipoIdentificacion" ng-options="item as item.descripcion for item in consultarCliente.listaTipoIdentificacion track by item.codigoParametro" required><option value="">-Seleccione-</option></select>
+						<p class="help-block" ng-if="consultarClienteForm.tipoIdentificacion.$touched && consultarClienteForm.tipoIdentificacion.$invalid">Tipo de Identificación es requerido.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="numIdentificacion" class="col-md-2 control-label">Número Identificación</label>
+					<div class="col-md-3" ng-class="{ 'has-error': consultarClienteForm.numeroIdentificacion.$touched && consultarClienteForm.numeroIdentificacion.$invalid }">
+						<input type="text" class="form-control" id="numIdentificacion" name="numeroIdentificacion" placeholder="Número Identificación" ng-model="consultarCliente.paramsConsulta.numIdentificacion" maxlength="20" required>
+						<p class="help-block" ng-if="consultarClienteForm.numeroIdentificacion.$touched && consultarClienteForm.numeroIdentificacion.$invalid">Número Identificación es requerido.</p> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="nombreEmpresa" class="col-md-2 control-label">Nombre Empresa</label>
+					<div class="col-md-3">
+						<input type="text" class="form-control" id="nombreEmpresa" ng-model="consultarCliente.nombreEmpresa" maxlength="99" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-2">
+						<button ng-click="consultarCliente.consultarPCGrupo(consultarCliente.paramsConsulta.tipoIdentificacion, consultarCliente.paramsConsulta.numIdentificacion)" class="btn btn-primary" ng-disabled="consultarClienteForm.numeroIdentificacion.$invalid || consultarClienteForm.tipoIdentificacion.$invalid">Consultar PC de Grupo</button>
+					</div>
+					<div class="col-md-1">
+						<button ng-click="consultarCliente.compararPC(consultarCliente.paramsConsulta.tipoIdentificacion, consultarCliente.paramsConsulta.numIdentificacion)" class="btn btn-primary" ng-disabled="consultarClienteForm.numeroIdentificacion.$invalid || consultarClienteForm.tipoIdentificacion.$invalid">Comparar PC</button>
+					</div>
+				</div>
+				<div>
+					<button class="btn btn-primary" ng-click="consultarCliente.salir()">Salir</button>
+				</div>
+			</form>	
+	  </div>
+	</div>
+</div>

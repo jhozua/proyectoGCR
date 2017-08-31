@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Datos del grupo a crear:</div>
+        <div class="panel-body">
+            <form class="formEdicionGrupo" name="crearGrupoSeguridadForm" novalidate>
+                <div class="row" style="width: 50%;">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group" ng-class="{ 'has-error': crearGrupoSeguridadForm.nombre.$touched && crearGrupoSeguridadForm.nombre.$invalid }">
+                            <label for="nombre">Nombre</label>
+                            <input name="nombre" type="text" class="form-control" ng-model="crearGrupoSeguridad.grupoObj.grupoSeguridadDTO.nombreGrupoSeguridad" maxlength='50'
+                                required/>
+                            <p class="help-block" ng-if="crearGrupoSeguridadForm.nombre.$touched && crearGrupoSeguridadForm.nombre.$invalid">El nombre del grupo es requerido.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="panel panel-primary">
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Seleccione un proceso:</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="proceso">Procesos</label>
+                                            <select class="form-control" ng-options='item as (item.descripcion) for item in crearGrupoSeguridad.listaProceso'
+                                                ng-model="crearGrupoSeguridad.nuevoGrupo.idProceso" ng-change="">
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="crearGrupoSeguridad.agregarProceso()">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-heading">Procesos:
+                            <span ng-click="crearGrupoSeguridad.eliminarSeleccion(crearGrupoSeguridad.procesosObj)" class="glyphicon glyphicon-trash btn botonEliminar"
+                                data-placement="top" title="Eliminar procesos seleccionados" onmouseover="$(this).tooltip('show')"
+                                onmouseleave="$(this).tooltip('hide')"></span>
+                                <span ng-click="crearGrupoSeguridad.alerts()" data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-plus btn botonEliminar"
+                                    data-placement="top" title="Agregar procesos" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+                        </div>
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-2">Eliminar
+                                        <span><input type="checkbox" aria-label="checkbox" ng-change="crearGrupoSeguridad.checkAll(crearGrupoSeguridad.procesosObj,crearGrupoSeguridad.checkAllFlag, crearGrupoSeguridad.variables.tabla_procesos)" ng-model="crearGrupoSeguridad.checkAllFlag" ng-true-value="true" ng-false-value="false"></span>
+                                    </th>
+                                    <th class="col-sm-2" ng-repeat="col in crearGrupoSeguridad.tableColumnsProceso.procesos" ng-click="crearGrupoSeguridad.doSort(col.property, col.subProperty)">{{col.label}}
+										<span ng-show="!crearGrupoSeguridad.reverse && col.property && ((!col.subProperty && crearGrupoSeguridad.sortBy == col.property)
+                                    ||(col.subProperty && crearGrupoSeguridad.sortBy.split('.')[0] == col.property && crearGrupoSeguridad.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                    <span ng-show="crearGrupoSeguridad.reverse && col.property && ((!col.subProperty && crearGrupoSeguridad.sortBy == col.property)
+                                    ||(col.subProperty && crearGrupoSeguridad.sortBy.split('.')[0] == col.property && crearGrupoSeguridad.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in crearGrupoSeguridad.procesosObj">
+                                	<td title="Eliminar" align="center">
+                                        <span><input type="checkbox" aria-label="checkbox" ng-model="data.selected"></span>
+                                    </td>
+                                    <td align="center" ng-repeat="param in crearGrupoSeguridad.tableColumnsProceso.procesos">
+                                        {{data[param.property]}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-primary" ng-click="crearGrupoSeguridad.irsalir()">Atrás</button>
+                <button class="btn btn-primary" ng-click="crearGrupoSeguridad.guardarDB()" ng-disabled="crearGrupoSeguridadForm.nombre.$invalid">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>

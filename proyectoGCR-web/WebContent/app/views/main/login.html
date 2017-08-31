@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="panel">
+        <div class="panel-body">
+            <form class="form-signin" name="loginForm">
+            	<div class="logo-square">
+					<img src="assets/img/logo_avvillas.png" />
+<!--       				<img src="assets/img/logo_bogota.png" /> -->
+<!--       				<img src="assets/img/logo_occidente.png" /> -->
+<!--             		<img src="assets/img/logo_popular.png" /> -->
+            	</div>
+                <h3 class="form-signin-heading">SOR_ADMIN</h3>
+                <input type="text" class="form-control" name="usuario" placeholder="Usuario" ng-model="login.usuario" autofocus>
+                <br>
+                <input type="password" class="form-control" name="password" placeholder="Contraseña" ng-model="login.password">
+                <br>
+                <button ng-click="login.iniciarSesion()" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid ">Aceptar</button>
+            </form>
+        </div>
+    </div>
+</div>

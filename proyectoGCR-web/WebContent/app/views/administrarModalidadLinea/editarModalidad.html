@@ -1,0 +1,119 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4>Editar Modalidad</h4>
+		</div>
+		<div class="panel-body">
+			<form ng-if="editarModalidad.func.fActualizar=='S' && !editarModalidad.error" class="form-horizontal" role="form" name="validarModalidad" novalidate>
+				<div class="form-group" ng-repeat="campo in editarModalidad.tableColumns.modalidades" ng-if="campo.visible == 'S' && !campo.norepeat"
+				    ng-class="{ 'has-error': validarModalidad.{{campo.property}}.$touched && validarModalidad[campo.property].$invalid }">
+					<label for="{{campo.property}}" class="col-md-2 control-label">{{campo.label}}:</label>
+					<div class="col-md-3">
+						<input ng-if="campo.type=='text'" type="text" class="form-control" name="{{campo.property}}" placeholder="{{campo.label}}"
+						    ng-model="editarModalidad.datoModalidad[campo.property]" maxlength="{{campo.length}}" ng-disabled="campo.editable == 'N'"
+						    ng-required="campo.obligatorio == 'S'">
+						<select ng-if="campo.type=='select'" name="{{campo.property}}" class="form-control" ng-options="item[campo.subProperty] for item in editarModalidad[campo.property] track by item[campo.trackBy]"
+						    ng-model="editarModalidad.datoModalidad[campo.property]" ng-required="campo.obligatorio == 'S'" />
+						<input ng-if="campo.type=='number'" type="number" class="form-control" id="{{campo.property}}" placeholder="Orden"
+						    ng-model="editarModalidad.datoModalidad[campo.property]" maxlength="{{campo.length}}" min="{{campo.min}}"
+						    ng-required="campo.obligatorio == 'S'">
+						<label ng-if="campo.check"><input type="checkbox" ng-model="editarModalidad.datoModalidad[campo.property]"
+									ng-true-value="'S'" ng-false-value="'N'"></label>
+						<p class="help-block" ng-if="validarModalidad[campo.property].$touched && validarModalidad[campo.property].$invalid">El campo '{{campo.label}}' es requerido.</p>
+					</div>
+				</div>
+				<div class="form-group" ng-if="editarModalidad.tableColumns.modalidades[12].visible == 'S'">
+					<label for="fPadre" class="col-md-2 control-label">{{editarModalidad.tableColumns.modalidades[12].label}}:</label>
+					<div class="col-md-3">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="editarModalidad.datoModalidad.fPadre"
+									ng-true-value="'S'" ng-false-value="'N'" ng-change="editarModalidad.verificarPadre()">
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="editarModalidad.tableColumns.modalidades[13].visible == 'S'">
+					<label for="nombreCorto" class="col-md-2 control-label">{{editarModalidad.tableColumns.modalidades[13].label}}:</label>
+					<div class="col-md-3">
+						<select class="form-control" ng-options="item.idTipoModalidad as item.nombreCorto disable when item.estado.codigoParametro == 'INA' for item in editarModalidad.tableData_mod_padre"
+										ng-model="editarModalidad.datoModalidad.idModalidadPadre" ng-disabled="editarModalidad.datoModalidad.fPadre == 'S'"/>
+						<br/>
+						<button ng-if="editarModalidad.datoModalidad.fPadre=='N'" ng-disabled="editarModalidad.funcLineas.fActualizar == 'N'" ng-click="editarModalidad.irCrearLinea()" class="btn btn-primary">Crear línea</button>
+					</div>
+				</div>
+				<div id="seccionLineas" ng-if="editarModalidad.datoModalidad && editarModalidad.datoModalidad.fPadre=='N'">
+					<div class="col-md-5">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4>Líneas disponibles</h4>
+							</div>
+							<div class="panel-body wrapper-lineas">
+								<table class="table table-hover table-bordered">
+									<thead>
+										<tr>
+											<th class="col-sm-2" ng-repeat="col in editarModalidad.tableColumns.lineas">{{col.label}}
+												<!--<span ng-show="!editarModalidad.reverse && editarModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+											<span ng-show="editarModalidad.reverse && editarModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>-->
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="data in editarModalidad.tableData" ng-click="editarModalidad.guardarArray(data , $index)">
+											<td ng-repeat="param in editarModalidad.tableColumns.lineas">
+												{{data[param.property]}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-0 col-md-1">
+							<br></br>
+							<br></br>
+							<button ng-click="editarModalidad.copiarTodo_array()" class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+		      </button>
+							<br></br>
+							<button ng-click="editarModalidad.borrarTodo_array()" class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+		      </button>
+							<br></br>
+						</div>
+						<div class="col-md-5">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h4>Líneas relacionadas</h4>
+								</div>
+								<div class="panel-body wrapper-lineas">
+									<table class="table table-hover table-bordered">
+										<thead>
+											<tr>
+												<th class="col-sm-2" ng-repeat="col in editarModalidad.tableColumns.lineas">{{col.label}}
+													<!--<span ng-show="!editarModalidad.reverse && editarModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+												<span ng-show="editarModalidad.reverse && editarModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>-->
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="data in editarModalidad.tableData_LineaRelacion" ng-click="editarModalidad.borrarArray(data, $index)" ng-class="{lineainactiva: data.estado.codigoParametro == 'INA'}">
+												<td ng-repeat="param in editarModalidad.tableColumns.lineas">
+													{{data[param.property]}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<button ng-click="editarModalidad.salirGestionModalidad()" class="btn btn-primary">Atrás</button>
+					<button ng-click="editarModalidad.guardarDb()" class="btn btn-primary" ng-disabled="editarModalidad.func.fActualizar=='N' ||validarModalidad.$invalid ">Guardar </button>
+				</div>
+			</form>
+			<button ng-if="editarModalidad.func.fActualizar != 'S' || editarModalidad.error" ng-click="editarModalidad.salirGestionModalidad()" class="btn btn-primary">Atrás</button>
+		</div>
+	</div>

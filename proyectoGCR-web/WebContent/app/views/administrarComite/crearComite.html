@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Información del comité a crear</div>
+        <div class="panel-body">
+            <form class="formEdicionComite" name="crearComiteForm" ng-if="creacionComite.func.fCrear == 'S' && !creacionComite.error" novalidate>
+                <div class="row" style="width: 50%;">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group" ng-class="{'has-error': crearComiteForm.varCodigo.$error.required && crearComiteForm.varCodigo.$touched}">
+                            <label for="varCodigo">Código</label>
+                            <input name="varCodigo" type="text" class="form-control" ng-model="creacionComite.datoComiteNuevo.codigoComite" maxlength='15' required/>
+                            <small class="help-block" ng-if="crearComiteForm.varCodigo.$error.required && crearComiteForm.varCodigo.$touched">Por favor ingresar código de comité</small>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': crearComiteForm.varNombreComite.$error.required && crearComiteForm.varNombreComite.$touched}">
+                            <label for="varNombreComite">Nombre comité</label>
+                            <input name="varNombreComite" class="form-control" type="text" ng-model="creacionComite.datoComiteNuevo.nombreComite" maxlength='100' required/>
+                            <small ng-show="crearComiteForm.varNombreComite.$error.required && crearComiteForm.varNombreComite.$touched">Por favor ingresar nombre de comité</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="varAprobadorComercial">Es Aprobador Comercial?</label>
+                            <input name="varAprobadorComercial" style="float: right;" type="checkbox" ng-model="creacionComite.datoComiteNuevo.fAprobComercial" ng-true-value="'S'" ng-false-value="'N'"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="varUnipersonal">Es Unipersonal?</label>
+                            <input name="varUnipersonal" style="float: right;" type="checkbox" ng-model="creacionComite.datoComiteNuevo.fUnipersonal" ng-change="creacionComite.validarRolPrepUnipersonal()" ng-disabled="creacionComite.validarDisabledUnipersonal()" ng-true-value="'S'" ng-false-value="'N'"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="varComiteAval">Es Comité Aval?</label>
+                            <input name="varComiteAval" style="float: right;" type="checkbox" ng-model="creacionComite.datoComiteNuevo.fComiteAval" ng-change="creacionComite.validarCheckUnipersonal()" ng-true-value="'S'" ng-false-value="'N'"/>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': crearComiteForm.varRolComite.$error.required && crearComiteForm.varRolComite.$touched}">
+                            <label for="varRolComite">Rol para preparación de comité</label>
+                            <input class="form-control" ng-model="creacionComite.datoComiteNuevo.rolPreparacion" name="varRolComite" ng-disabled="creacionComite.datoComiteNuevo.fUnipersonal == 'S'" maxlength='200' ng-required="creacionComite.validarRequeridoRolPrepComite()"/>
+                            <small ng-show="crearComiteForm.varRolComite.$error.required && crearComiteForm.varRolComite.$touched">Por favor ingresar rol para preparación de comité</small>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Participantes:
+                            <span ng-disabled="!creacionComite.datoComiteNuevo.comiteXParticipanteComites.length" ng-click="creacionComite.eliminarSeleccion()" class="glyphicon glyphicon-trash btn botonEliminar" data-placement="top" title="Eliminar participantes seleccionados" onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+                            <span ng-click="creacionComite.irAgregarParticipante()" class="glyphicon glyphicon-plus btn botonEliminar" data-placement="top" title="Agregar participantes al comité" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+                        </div>
+                        <table class="table table-striped table-fixed">
+                            <thead>
+                                <tr>
+                                    <th ng-click="creacionComite.doSort('participanteComite.tipoParticipante.descripcion')">Tipo participante
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.tipoParticipante.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.tipoParticipante.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.tipoIdentificacion.descripcion')">Tipo identificación
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.numeroIdentificacion')">No. identificación
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.numeroIdentificacion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.numeroIdentificacion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.nombre')">Nombre
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.nombre'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.nombre'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.cargo')">Cargo
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.cargo'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.cargo'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.email')">Email
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.email'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.email'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th ng-click="creacionComite.doSort('rolParticipante.descripcion')">Rol
+                                            <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'rolParticipante.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                            <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'rolParticipante.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th>Secretario <span><input type="checkbox" ng-disabled="!creacionComite.datoComiteNuevo.comiteXParticipanteComites.length" aria-label="checkbox" ng-change="creacionComite.checkAll(creacionComite.checkAllFlagSecretario, 'fSecretario', creacionComite.paramSecretario.si, creacionComite.paramSecretario.no)" ng-model="creacionComite.checkAllFlagSecretario" ng-true-value="true" ng-false-value="false"></span></th>
+                                    <th ng-click="creacionComite.doSort('participanteComite.usuarioBpm')">Usuario BPM
+                                        <span ng-show="!creacionComite.reverse && creacionComite.sortBy == 'participanteComite.usuarioBpm'" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                        <span ng-show="creacionComite.reverse && creacionComite.sortBy == 'participanteComite.usuarioBpm'" class="glyphicon glyphicon-chevron-up orderIcon"></span></th>
+                                    <th class="eliminarColumn">Eliminar <span><input type="checkbox" ng-disabled="!creacionComite.datoComiteNuevo.comiteXParticipanteComites.length" aria-label="checkbox" ng-change="creacionComite.checkAll(creacionComite.checkAllFlag, 'eliminar')" ng-model="creacionComite.checkAllFlag" ng-true-value="true" ng-false-value="false"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="dato in creacionComite.datoComiteNuevo.comiteXParticipanteComites | orderBy: creacionComite.sortBy:creacionComite.reverse">
+                                    <td title="Tipo participante">
+                                        {{dato.participanteComite.tipoParticipante.descripcion}}
+                                    </td>
+                                    <td data-title="Tipo identificación">
+                                        {{dato.participanteComite.tipoIdentificacion.descripcion}}
+                                    </td>
+                                    <td data-title="No. identificación">
+                                        {{dato.participanteComite.numeroIdentificacion}}
+                                    </td>
+                                    <td data-title="Nombre">
+                                        {{dato.participanteComite.nombre}}
+                                    </td>
+                                    <td data-title="Cargo">
+                                        {{dato.participanteComite.cargo}}
+                                    </td>
+                                    <td data-title="Email">
+                                        {{dato.participanteComite.email}}
+                                    </td>
+                                    <td data-title="Rol">
+                                        <select style='width:100%;' ng-class="{'error': crearComiteForm.rol{{dato.participanteComite.idParticipanteComite}}.$error.required}" name="rol{{dato.participanteComite.idParticipanteComite}}" class="table-select-field" ng-options="rol as rol.descripcion for rol in creacionComite.rolesParticipante" ng-model="dato.rolParticipante" required>
+                                            <option selected value="">Seleccione...</option>
+                                        </select>
+                                        <small ng-show="crearComiteForm.rol{{dato.participanteComite.idParticipanteComite}}.$error.required" class="alert-danger">Obligatorio</small>
+                                    </td>
+                                    <td data-title="Secretario">
+                                        <div class="text-center">
+                                            <input type="checkbox" ng-model="dato.fSecretario" ng-true-value="'S'" ng-false-value="'N'">
+                                        </div>
+                                    </td>
+                                    <td data-title="Usuario BPM">
+                                        {{dato.participanteComite.usuarioBpm}}
+                                    </td>
+                                    <td data-title="Eliminar">
+                                        <div class="text-center">
+                                            <input type="checkbox" ng-model="dato.eliminar" >
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr ng-if="!creacionComite.datoComiteNuevo.comiteXParticipanteComites || !creacionComite.datoComiteNuevo.comiteXParticipanteComites.length">
+                                    <td colspan="9">No hay participantes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-primary" ng-click="creacionComite.irGestionComite()" >Atrás</button>
+                <button class="btn btn-primary" ng-click="creacionComite.crearComite()" ng-disabled="crearComiteForm.$invalid" >Guardar</button>
+            </form>
+            <button class="btn btn-primary" ng-if="creacionComite.func.fCrear != 'S' || crearComite.error" ng-click="creacionComite.irGestionComite()" >Atrás</button>
+        </div>
+    </div>
+</div>

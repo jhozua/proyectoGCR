@@ -1,0 +1,97 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Elegir empresa para adicionar a C/UT/PA</div>
+		<div class="panel-body">
+			<div id="myAlert" ng-class="agregarEmpresas.classAlerta" class="alert alert-dismissable fade in" role="alert" ng-if="agregarEmpresas.alertaAgregarMiembro">
+				<button type="button" class="close" ng-click="agregarEmpresas.alertaAgregarMiembro=false;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="glyphicon" ng-class="agregarEmpresas.classIconAlerta" aria-hidden="true"></span>{{agregarEmpresas.msgAlertaAgregarMiembro}}
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-4">
+					<div class="form-group">
+						<label for="tipodoc">Tipo identificación empresa</label>
+						<select class="form-control" name="tipodoc" ng-model="agregarEmpresas.filtroTipodoc">
+							<option value="" selected>Seleccione...</option>
+							<option ng-repeat="tipo in agregarEmpresas.listaTipoDocumento" value="{{tipo.codigoParametro}}">{{tipo.descripcion}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="numdoc">No. identificación empresa</label>
+						<input class="form-control" type="text" name="numdoc" ng-model="agregarEmpresas.filtroNumdoc">
+					</div>
+					<div class="form-group">
+						<label for="nombrep">Nombre empresa</label>
+						<input class="form-control" type="text" name="nombrep" ng-model="agregarEmpresas.filtroNombre">
+					</div>
+				</div>
+				<br>
+				<div class="row col-md-2">
+					<button class="btn btn-primary btn-block" ng-click="agregarEmpresas.consultar()">Consultar</button>
+				</div>
+			</div>
+			<div class="panel panel-primary table-container">
+				<div class="panel-heading">
+					Seleccionar empresas a incluir
+				</div>
+				<div class="panel-body">
+					<table class="table table-fixed">
+						<thead>
+							<tr>
+								<th ng-click="agregarEmpresas.checkAll(agregarEmpresas.datosTabla.datos)">Agregar a C/UT/PA <span><input type="checkbox" aria-label="checkbox" ng-change="agregarEmpresas.checkAll(agregarEmpresas.datosTabla.datos)" ng-model="agregarEmpresas.checkAllFlag" ng-show="agregarEmpresas.datosTabla.datos" ng-true-value="true" ng-false-value="false"></span></th>
+								<th ng-click="agregarEmpresas.doSort('tipoIdentificacion.descripcion')">Tipo Identificación
+									<span ng-show="!agregarEmpresas.reverse && agregarEmpresas.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+									<span ng-show="agregarEmpresas.reverse && agregarEmpresas.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+								<th ng-click="agregarEmpresas.doSort('numeroIdentificacion')">No. Identificación
+									<span ng-show="!agregarEmpresas.reverse && agregarEmpresas.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+									<span ng-show="agregarEmpresas.reverse && agregarEmpresas.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+								<th ng-click="agregarEmpresas.doSort('digitoVerificacionInvolucr')">Dígito ver.
+									<span ng-show="!agregarEmpresas.reverse && agregarEmpresas.sortBy == 'digitoVerificacionInvolucr'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+									<span ng-show="agregarEmpresas.reverse && agregarEmpresas.sortBy == 'digitoVerificacionInvolucr'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+								<th ng-click="agregarEmpresas.doSort('nombre')">Nombre Empresa
+									<span ng-show="!agregarEmpresas.reverse && agregarEmpresas.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+									<span ng-show="agregarEmpresas.reverse && agregarEmpresas.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="!agregarEmpresas.datosTabla.datos || !agregarEmpresas.datosTabla.datos.length">
+								<td colspan="8" class="text-center">No hay datos</td>
+							</tr>
+							<tr ng-repeat="personaJuridica in agregarEmpresas.datosTabla.datos | orderBy: agregarEmpresas.sortBy:agregarEmpresas.reverse"
+											ng-class="{'selected':$index == agregarEmpresas.selectedRow}" ng-click="agregarEmpresas.checkItem(agregarEmpresas.datosTabla.datos, personaJuridica)">
+								<td class="text-center">
+									<input type="checkbox" ng-change="agregarEmpresas.checkItem(agregarEmpresas.datosTabla.datos, personaJuridica)"  ng-model="personaJuridica.selected">
+								</td>
+								<td>{{personaJuridica.tipoIdentInvlucrado.descripcion}}</td>
+								<td>{{personaJuridica.numIdentificInvolucrado}}</td>
+								<td>{{personaJuridica.digitoVerificacionInvolucr}}</td>
+								<td>{{personaJuridica.nombreRazonSocial}}</td>
+								</tr>
+						</tbody>
+					</table>
+					<div class="estiloPaginacion" ng-show="agregarEmpresas.datosTabla.totalPaginas > 1">
+						<nav aria-label="Page navigation">
+							<ul class="pagination">
+								<li>
+									<a ng-class="{'page-link-disabled': agregarEmpresas.datosTabla.paginaSolicitada === 1}" ng-click="agregarEmpresas.consultar(agregarEmpresas.datosTabla.paginaSolicitada-1)"
+													aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+										</a>
+								</li>
+								<li ng-class="{active: $index+1 == agregarEmpresas.datosTabla.paginaSolicitada}" ng-repeat="page in agregarEmpresas.paginas track by $index">
+									<span ng-click="agregarEmpresas.consultar($index+1)">{{$index+1}}</span>
+								</li>
+								<li>
+									<a ng-class="{'page-link-disabled': agregarEmpresas.datosTabla.paginaSolicitada === agregarEmpresas.datosTabla.totalPaginas}"
+													ng-click="agregarEmpresas.consultar(agregarEmpresas.datosTabla.paginaSolicitada+1)" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+										</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<div/>
+				</div>
+			</div>
+			<button class="btn btn-primary" ng-click="agregarEmpresas.salir()">Atrás</button>
+			<button class="btn btn-primary" ng-show="agregarEmpresas.showAgregarSeleccion" ng-click="agregarEmpresas.agregarSeleccion()">Agregar a la selección </button>
+		</div>

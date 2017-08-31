@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Administrar Funcionalidades</h4>
+        </div>
+        <div class="panel-body">
+            <form role="form" name="validarFunc">
+                <table class="table table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Código</th>
+                            <th class="col-sm-4">Nombre
+                                <span ng-show="!adminFunc.reverse && adminFunc.reverse !== undefined" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                <span ng-show="adminFunc.reverse" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="func in adminFunc.funcionalidades | orderBy:'idFuncionalidad'">
+                            <td class="col-sm-1">{{func.idFuncionalidad}}</td>
+                            <td class="col-sm-4">
+                                <div class="form-group" ng-class="{ 'has-error':validarFunc.nombreF{{func.idFuncionalidad}}.$error.required }">
+                                    <input name="nombreF{{func.idFuncionalidad}}" class="wide form-control" type="text" ng-model="func.nombre" maxlength="100"
+                                        minlength="1" required>
+                                    <p class="error-table" ng-if="!func.nombre">El nombre es requerido.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <button class="btn btn-primary" ng-click="adminFunc.salir()">Salir</button>
+                <input type="submit" ng-click="adminFunc.guardar()" class="btn btn-primary" value="Guardar" ng-disabled="validarFunc.$invalid "
+                />
+            </form>
+        </div>
+    </div>
+</div>
+</div>

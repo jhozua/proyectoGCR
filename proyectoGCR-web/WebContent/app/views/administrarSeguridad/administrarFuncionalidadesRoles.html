@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Administrar funcionalidades de roles</h4>
+        </div>
+        <div class="panel-body">
+            <form role="form" name="validarRoles">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Roles</div>
+                    <div class="panel-body">
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-2">Código</th>
+                                    <th class="col-sm-4">Descripción</th>
+                                    <th class="col-sm-1">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rol in adminFuncRoles.roles" ng-click="adminFuncRoles.cargarFuncionalidadesRol(rol, $index)" ng-class="{'selected':$index == adminFuncRoles.selectedIndex}">
+                                    <td class="col-sm-2">
+                                        <div class="form-group" ng-class="{ 'has-error':validarRoles.codigoRol{{rol.idRol}}.$error.required }">
+                                            <input name="codigoRol{{rol.idRol}}" class="wide form-control" type="text" ng-model="rol.codigoRol" maxlength="50" minlength="1"
+                                                ng-click="$event.stopPropagation();" ng-disabled="!rol.edit" required>
+                                            <p class="error-table" ng-if="!rol.codigoRol">El código es requerido.</p>
+                                    </td>
+                                    <td class="col-sm-4">
+                                        <div class="form-group" ng-class="{ 'has-error':validarRoles.descRol{{rol.idRol}}.$error.required }">
+                                            <input name="descRol{{rol.idRol}}" class="wide form-control" type="text" ng-model="rol.descripcion" maxlength="100" minlength="1"
+                                                ng-click="$event.stopPropagation();" ng-disabled="!rol.edit" required>
+                                            <p class="error-table" ng-if="!rol.descripcion">La descripción es requerida.</p>
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <span class="glyphicon glyphicon-pencil" ng-click="adminFuncRoles.editarRol(rol, $index); $event.stopPropagation();" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="panel panel-primary">
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Seleccione una funcionalidad:</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Funcionalidades</label>
+                                            <select class="form-control" ng-options='func.nombre for func in adminFuncRoles.funcDisponibles' ng-model="adminFuncRoles.nuevaFunc">
+                                                <option value="" disabled selected>Seleccione...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="adminFuncRoles.agregarFuncionalidad()">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-heading">Funcionalidades asociadas
+                            <span ng-click="adminFuncRoles.eliminarFuncionalidades()" ng-if="adminFuncRoles.selectedRole !== undefined && adminFuncRoles.selectedRole.edit"
+                                class="glyphicon glyphicon-trash btn botonEliminar" data-placement="top" title="Eliminar funcionalidades seleccionadas"
+                                onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+                            <span ng-if="adminFuncRoles.selectedRole !== undefined && adminFuncRoles.selectedRole.edit && adminFuncRoles.funcDisponibles.length"
+                                class="glyphicon glyphicon-plus btn botonEliminar" data-toggle="modal" data-target="#myModal"
+                                data-placement="top" title="Agregar funcionalidad al rol" onmouseenter="$(this).tooltip('show')"
+                                onmouseleave="$(this).tooltip('hide')"></span>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-fixed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th colspan="1" class="col-sm-3"/>
+                                        <th colspan="4" class="col-sm-4">Operaciones de la funcionalidad</th>
+                                        <th colspan="1" class="col-sm-1"/>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-3">Nombre</th>
+                                        <th class="col-sm-1">Crear</th>
+                                        <th class="col-sm-1">Consultar</th>
+                                        <th class="col-sm-1">Modificar</th>
+                                        <th class="col-sm-1">Eliminar/ inactivar</th>
+                                        <th class="col-sm-1">Desasociar funcionalidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="func in adminFuncRoles.funcRol">
+                                        <td class="col-sm-3">{{func.nombreFuncionalidad}}</td>
+                                        <td class="col-sm-1">
+                                            <input type="checkbox" ng-true-value="'S'" ng-false-value="'N'" ng-model="func.fCrear" ng-disabled="!adminFuncRoles.selectedRole.edit"
+                                            />
+                                        </td>
+                                        <td class="col-sm-1">
+                                            <input type="checkbox" ng-true-value="'S'" ng-false-value="'N'" ng-model="func.fConsultar" ng-disabled="!adminFuncRoles.selectedRole.edit"
+                                            />
+                                        </td>
+                                        <td class="col-sm-1">
+                                            <input type="checkbox" ng-true-value="'S'" ng-false-value="'N'" ng-model="func.fActualizar" ng-disabled="!adminFuncRoles.selectedRole.edit"
+                                            />
+                                        </td>
+                                        <td class="col-sm-1">
+                                            <input type="checkbox" ng-true-value="'S'" ng-false-value="'N'" ng-model="func.fEliminar" ng-disabled="!adminFuncRoles.selectedRole.edit"
+                                            />
+                                        </td>
+                                        <td class="col-sm-1">
+                                            <input type="checkbox" ng-init="false" ng-model="func.remove" ng-disabled="!adminFuncRoles.selectedRole.edit" />
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!adminFuncRoles.funcRol || !adminFuncRoles.funcRol.length">
+                                        <td colspan="6" class="text-center">No hay funcionalidades/seleccione un rol</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" ng-click="adminFuncRoles.salir()">Salir</button>
+                    <input type="submit" ng-click="adminFuncRoles.guardarRolConFunc()" class="btn btn-primary" value="Guardar" ng-disabled="validarRoles.$invalid || !adminFuncRoles.selectedRole.edit"
+                    />
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

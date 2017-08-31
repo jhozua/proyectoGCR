@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Administrar Usuarios</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-offset-4 col-md-4">
+                    <table class="table table-small table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-4">Nombre
+                                    <span ng-show="!adminRolesUsuarios.reverse && adminRolesUsuarios.reverse !== undefined" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                    <span ng-show="adminRolesUsuarios.reverse" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="usuario in adminRolesUsuarios.usuarios | orderBy:adminRolesUsuarios.sortBy:adminRolesUsuarios.reverse" ng-click="adminRolesUsuarios.cargarRolesUsuario(usuario, $index)"
+                                ng-class="{'selected':$index == adminRolesUsuarios.selectedIndex}">
+                                <td class="col-sm-4">{{usuario.nombreUsuario}}</td>
+                            </tr>
+                            <tr ng-show="!adminRolesUsuarios.usuarios || !adminRolesUsuarios.usuarios.length">
+                                <td colspan="1" class="text-center">No hay datos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xs-offset-1 col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Roles disponibles</h4>
+                        </div>
+                        <div class="panel-body panel-height">
+                            <table class="table table-hover table-fixed">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-2">Código</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="rol in adminRolesUsuarios.rolesDisponibles" ng-click="adminRolesUsuarios.agregarRolRelacion(rol , $index)">
+                                        <td>{{rol.codigoRol}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <button ng-click="adminRolesUsuarios.todosrolesAsociados()" ng-disabled="adminRolesUsuarios.selectedIndex == undefined"
+                            class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+		      </button>
+                        <br/>
+                        <button ng-click="adminRolesUsuarios.todosRolesDisponibles()" ng-disabled="adminRolesUsuarios.selectedIndex == undefined"
+                            class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+		      </button>
+                        <br/>
+                    </div>
+                    <div class="col-xs-offset-1" />
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4>Roles asociados</h4>
+                            </div>
+                            <div class="panel-body panel-height">
+                                <table class="table table-hover table-fixed">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-2">Código</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="rol in adminRolesUsuarios.rolesAsociados" ng-click="adminRolesUsuarios.quitarRolRelacion(rol , $index)">
+                                            <td>{{rol.codigoRol}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" ng-click="adminRolesUsuarios.salir()">Salir</button>
+            <input type="submit" ng-click="adminRolesUsuarios.guardar()" class="btn btn-primary" value="Guardar" ng-disabled="adminRolesUsuarios.selectedIndex == undefined"
+            />
+
+        </div>
+    </div>
+</div>
+</div>

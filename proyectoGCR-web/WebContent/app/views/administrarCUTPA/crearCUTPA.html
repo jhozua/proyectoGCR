@@ -1,0 +1,128 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Crear Consorcios/Uniones Temporales/Patrimonios Autónomos </div>
+			<div class="panel-body">
+				<form role="form" role="form" name="crearCUTPAForm" novalidate>
+					<div class="row">
+						<div class="col-xs-12 col-md-4">
+						 <div class="form-group" ng-class="{'has-error': crearCUTPAForm.varTipoPersonaJuridica.$error.required && crearCUTPA.formEnviado}">
+							<label for="varTipoPersonaJuridica">Tipo de agrupamiento</label>
+							<select class="form-control" name="varTipoPersonaJuridica" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.tipoPersonaJuridica " ng-options="item.descripcion for item in crearCUTPA.listaTipoAgrupamiento track by item.codigoParametro" ng-change="crearCUTPA.cambioTipoAgrupamiento()" required>
+								<option value="" selected disabled>Seleccione...</option>							</select>
+							<small ng-show="crearCUTPAForm.varTipoPersonaJuridica.$error.required && crearCUTPA.formEnviado">Ingresar tipo agrupamiento</small>
+						</div>
+						 <div class="form-group" ng-class="{'has-error': crearCUTPAForm.varTipoIdentificacion.$error.required && crearCUTPA.formEnviado}">
+							<label for="varTipoIdentificacion">Tipo identificación</label>
+							<select class="form-control" name="varTipoIdentificacion" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.tipoIdentInvlucrado" ng-options="item.descripcion for item in crearCUTPA.listaTipoDocumento track by item.codigoParametro" required>
+								<option value="" selected disabled>Seleccione...</option>
+							</select>
+							<small ng-show="crearCUTPAForm.varTipoIdentificacion.$error.required && crearCUTPA.formEnviado">Ingresar tipo identificación</small>	
+						</div>
+							<div class="form-group" ng-class="{'has-error': crearCUTPAForm.varNumeroIdentificacion.$error.required && crearCUTPA.formEnviado}">
+								<label for="varNumeroIdentificacion">No. identificación</label>
+								<input class="form-control" type="text" name="varNumeroIdentificacion" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.numIdentificInvolucrado" ng-required="!crearCUTPA.activarFiduciaria || crearCUTPA.obligatoriedadNumero">
+								<small ng-show="crearCUTPAForm.varNumeroIdentificacion.$error.required && crearCUTPA.formEnviado">Ingresar número de identificación</small>	
+							</div>
+							<div class="form-group" ng-class="{'has-error': crearCUTPAForm.varFiduciaria.$error.required && crearCUTPA.formEnviado}">
+								<label for="varFiduciaria">Fiduciaria</label>
+			                        <select class="form-control" name="varFiduciaria" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.fiduciaria"
+			                        		ng-options="item.descripcion for item in crearCUTPA.listaFiduciarias track by item.codigoParametro" ng-disabled="!crearCUTPA.activarFiduciaria" ng-change="crearCUTPA.cambioFiduciaria()" ng-required="crearCUTPA.activarFiduciaria"/>
+			                        <small ng-show="crearCUTPAForm.varFiduciaria.$error.required && crearCUTPA.formEnviado">Seleccionar Fiduciaria</small>	
+							</div>	
+							<div class="form-group">
+								<label for="numdoc">Consecutivo</label>
+								<input class="form-control" type="text" name="numdoc" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.consecutivoPatrimonioAut" readonly>
+							</div>
+							 <div class="form-group" ng-class="{'has-error': crearCUTPAForm.varNombreAgrupamiento.$error.required && crearCUTPA.formEnviado}">
+								<label for="varNombreAgrupamiento">Nombre C/UT/PA</label>
+								<input class="form-control" type="text" name="varNombreAgrupamiento" ng-model="crearCUTPA.adminInvolucradosCUTPA.involucradoPadre.nombreRazonSocial" required>
+								<small ng-show="crearCUTPAForm.varNombreAgrupamiento.$error.required && crearCUTPA.formEnviado">Ingresar nombre del agrupamiento</small>
+							</div>
+
+						</div>
+						<br>
+						<div class="row col-md-2">
+							<button class="btn btn-primary btn-block" ng-disabled="!crearCUTPA.puedeConsultarCRM" ng-click="crearCUTPA.consultarEnCRM()">Consultar en CRM</button>
+						</div>
+					</div>
+
+				
+					<div class="panel panel-primary table-container">
+						<div class="panel-heading">
+							Miembros
+							<span ng-show="crearCUTPA.adminInvolucradosCUTPA.miembrosCUTPA.length" ng-click="crearCUTPA.eliminarSeleccion()" class="glyphicon glyphicon-trash btn botonEliminar" data-placement="top" title="Eliminar empresas seleccionadas del C/UT/PA" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+							<span ng-click="crearCUTPA.irAgregarEmpresa()" class="glyphicon glyphicon-plus btn botonEliminar" data-placement="top" title="Agregar empresas" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+					</div>
+
+					
+						<div class="panel-body">
+							<table class="table table-fixed">
+								<thead>
+									<tr>
+										<th>Eliminar<span class="checkboxEliminar" ng-show="crearCUTPA.adminInvolucradosCUTPA.miembrosCUTPA.length>0"><input type="checkbox" aria-label="checkbox" ng-change="crearCUTPA.checkAll(crearCUTPA.checkAllFlag)" ng-model="crearCUTPA.checkAllFlag" ng-true-value="true" ng-false-value="false"/></span></th>
+										<th ng-click="crearCUTPA.doSort('tipoIdentificacion.descripcion')">Tipo Identificación
+														<span ng-show="!crearCUTPA.reverse && crearCUTPA.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+														<span ng-show="crearCUTPA.reverse && crearCUTPA.sortBy == 'tipoIdentificacion.descripcion'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+										<th ng-click="crearCUTPA.doSort('numeroIdentificacion')">No. Identificación
+														<span ng-show="!crearCUTPA.reverse && crearCUTPA.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+														<span ng-show="crearCUTPA.reverse && crearCUTPA.sortBy == 'numeroIdentificacion'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+										<th ng-click="crearCUTPA.doSort('digitoVerificacionInvolucr')">Dígito ver.
+														<span ng-show="!crearCUTPA.reverse && crearCUTPA.sortBy == 'digitoVerificacionInvolucr'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+														<span ng-show="crearCUTPA.reverse && crearCUTPA.sortBy == 'digitoVerificacionInvolucr'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+										<th ng-click="crearCUTPA.doSort('nombre')">Nombre Empresa
+														<span ng-show="!crearCUTPA.reverse && crearCUTPA.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+														<span ng-show="crearCUTPA.reverse && consultarEditarCUTPA.sortBy == 'nombre'" class="glyphicon glyphicon-chevron-down orderIcon"></span></th>
+										<th ng-click="edicionComites.doSort('tipoParticipante.descripcion')">% Participación</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-show="!crearCUTPA.adminInvolucradosCUTPA.miembrosCUTPA || !crearCUTPA.adminInvolucradosCUTPA.miembrosCUTPA.length">
+										<td colspan="5" class="text-center">No hay datos</td></tr>
+									<tr ng-repeat="involucradoMiembro in crearCUTPA.adminInvolucradosCUTPA.miembrosCUTPA | filterPlantillas | orderBy: crearCUTPA.sortBy:crearCUTPA.reverse">
+										
+										<td data-title="Eliminar" class="text-center">
+											<input type="checkbox" ng-model="involucradoMiembro.eliminar">
+										</td>
+										<td data-title="Tipo Identificación">{{involucradoMiembro.involucrado.tipoIdentInvlucrado.descripcion}}</td>
+										<td data-title="No. Identificación">{{involucradoMiembro.involucrado.numIdentificInvolucrado}}</td>
+										<td data-title="Dígito ver.">{{involucradoMiembro.involucrado.digitoVerificacionInvolucr}}</td>
+										<td data-title="Nombre empresa">{{involucradoMiembro.involucrado.nombreRazonSocial}}</td>
+										<td data-title="% Participación" ng-class="{'has-error': crearCUTPAForm.pctPart{{$index}}.$error.required && crearCUTPA.formEnviado}"><input class="form-control" name="pctPart{{$index}}" type="text"  
+													ng-model="involucradoMiembro.porcentajeParticipacion" required>
+											<small ng-show="crearCUTPAForm.pctPart{{$index}}.$error.required && crearCUTPA.formEnviado">Ingresar porcentaje</small>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="estiloPaginacion" ng-show="crearCUTPA.datosTabla.totalPaginas > 1">
+						  		<nav aria-label="Page navigation">
+						  			<ul class="pagination">
+										<li>
+							  				<a ng-class="{'page-link-disabled': crearCUTPA.datosTabla.paginaSolicitada === 1}" 
+							  					ng-click="crearCUTPA.consultar(crearCUTPA.datosTabla.paginaSolicitada-1)" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+							  				</a>
+										</li>
+										<li ng-class="{active: $index+1 == crearCUTPA.datosTabla.paginaSolicitada}" ng-repeat="page in crearCUTPA.paginas track by $index">
+											<span ng-click="crearCUTPA.consultar($index+1)">{{$index+1}}</span>
+										</li>
+										<li>
+							  				<a ng-class="{'page-link-disabled': crearCUTPA.datosTabla.paginaSolicitada === crearCUTPA.datosTabla.totalPaginas}" 
+							  					ng-click="crearCUTPA.consultar(crearCUTPA.datosTabla.paginaSolicitada+1)" aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+							  				</a>
+										</li>
+						  			</ul>
+						  		</nav>
+						 	</div>
+						 <div/>
+					</div>
+				</div>
+				 <button class="btn btn-primary" ng-click="crearCUTPA.salir(true)" >Atrás</button>
+				 <button class="btn btn-primary" ng-disabled="!crearCUTPA.puedeCrearCRM" ng-click="crearCUTPA.crearAgrupamientoCUTPA(crearCUTPAForm.$valid)" >Guardar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>

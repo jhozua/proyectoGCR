@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Seguridad SOR_ADMIN</h4>
+        </div>
+        <div class="panel-body">
+            <div name="options" ng-if="segMain.func.fConsultar == 'S' && !segMain.error">
+                <a class="pointer" ng-click="segMain.goTo(segMain.funcionalidades)">Administración de funcionalidades</a><br/>
+                <a class="pointer" ng-click="segMain.goTo(segMain.campos)">Administración de campos</a><br/>
+                <a class="pointer" ng-click="segMain.goTo(segMain.roles)">Administración de roles</a><br/>
+                <a class="pointer" ng-click="segMain.goTo(segMain.funcRoles)">Administración de funcionalidades por rol</a><br/>
+                <a class="pointer" ng-click="segMain.goTo(segMain.grupos)">Administración de grupos</a><br/>
+            </div>
+            <br/>
+            <button class="btn btn-primary" ng-click="segMain.salir()">Salir</button>
+        </div>
+    </div>
+</div>

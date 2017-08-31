@@ -1,0 +1,166 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Adicionar empresas/grupos</div>
+		<div class="panel-body">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Tipo a agregar</label>
+					<div class="col-md-2" ng-repeat="option in agregarMiembrosGrupo.opcionesAgregar track by $index">
+						<label><input type="radio" aria-label="radio" ng-model="agregarMiembrosGrupo.opcionSeleccionada" ng-value="option.opc" ng-change="agregarMiembrosGrupo.tipoAgregar()">{{option.label}}</label>
+					</div>
+				</div>
+				<div ng-show="agregarMiembrosGrupo.variables.showGrupos">
+					<div class="form-group">
+						<label for="codigoGrupo" class="col-md-2 control-label">Código Grupo</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="codigoGrupo" placeholder="Código Grupo" ng-model="agregarMiembrosGrupo.codigoGrupo"
+							  maxlength="15">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nombreGrupo" class="col-md-2 control-label">Nombre Grupo</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="nombreGrupo" placeholder="Nombre Grupo" ng-model="agregarMiembrosGrupo.nombreGrupo"
+							  maxlength="99">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-4 col-md-1">
+							<button ng-click="agregarMiembrosGrupo.consultarGrupos(agregarMiembrosGrupo.codigoGrupo, agregarMiembrosGrupo.nombreGrupo)"
+							  class="btn btn-primary">Consultar</button>
+						</div>
+					</div>
+					<div ng-show="agregarMiembrosGrupo.gruposDisponibles.datos" class="panel panel-primary">
+						<div class="panel-heading">Seleccionar grupo a incluir</div>
+						<div class="panel-body">
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th class="col-sm-1" ng-click="agregarMiembrosGrupo.checkAll(agregarMiembrosGrupo.gruposDisponibles.datos)">
+											<span><input type="checkbox" aria-label="checkbox" ng-change="agregarMiembrosGrupo.checkAll(agregarMiembrosGrupo.gruposDisponibles.datos)" ng-model="agregarMiembrosGrupo.checkAllFlag" ng-true-value="true" ng-false-value="false"></span>
+										</th>
+										<th class="col-sm-2" ng-repeat="col in agregarMiembrosGrupo.tableColumns.grupos" ng-click="agregarMiembrosGrupo.doSort(col.property)">{{col.label}}
+											<span ng-show="!agregarMiembrosGrupo.reverse && agregarMiembrosGrupo.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+											<span ng-show="agregarMiembrosGrupo.reverse && agregarMiembrosGrupo.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-show="!agregarMiembrosGrupo.gruposDisponibles.datos || !agregarMiembrosGrupo.gruposDisponibles.datos.length"><td colspan="3" class="text-center">No hay datos</td></tr>
+									<tr ng-repeat="data in agregarMiembrosGrupo.gruposDisponibles.datos | orderBy:agregarMiembrosGrupo.sortBy:agregarMiembrosGrupo.reverse"
+									  ng-click="agregarMiembrosGrupo.checkItem(agregarMiembrosGrupo.gruposDisponibles.datos, data)">
+										<td align="center">
+											<span><input type="checkbox" aria-label="checkbox" ng-model="data.selected" ng-change="agregarMiembrosGrupo.checkItem(agregarMiembrosGrupo.gruposDisponibles.datos, data)"></span>
+										</td>
+										<td align="center" ng-repeat="param in agregarMiembrosGrupo.tableColumns.grupos">
+											{{data[param.property]}}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="estiloPaginacion">
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li>
+											<a ng-click="agregarMiembrosGrupo.paginaSeleccionada(agregarMiembrosGrupo.paginasAgregarGrupos.paginaActual, 'anterior')"
+											  aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+										<li ng-class="{active: page == agregarMiembrosGrupo.paginasAgregarGrupos.paginaActual}" ng-repeat="page in agregarMiembrosGrupo.paginasAgregarGrupos.arrayTotalPaginas"><span ng-click="agregarMiembrosGrupo.paginaSeleccionada(page)">{{page}}</span></li>
+										<li>
+											<a ng-click="agregarMiembrosGrupo.paginaSeleccionada(agregarMiembrosGrupo.paginasAgregarGrupos.paginaActual, 'siguiente')"
+											  aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-hide="agregarMiembrosGrupo.variables.showGrupos">
+					<div class="form-group">
+						<label for="codigoGrupo" class="col-md-2 control-label">Tipo Identificación Empresa</label>
+						<div class="col-md-3">
+							<select class="form-control" ng-model="agregarMiembrosGrupo.tipo" ng-options="item.descripcion for item in agregarMiembrosGrupo.listaTipoIdentificacion"><option value=""></option></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="codigoGrupo" class="col-md-2 control-label">Número Identificación Empresa</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="codigoGrupo" placeholder="Identificación Empresa" ng-model="agregarMiembrosGrupo.identEmpresa"
+							  maxlength="20">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nombreGrupo" class="col-md-2 control-label">Nombre Empresa</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="nombreGrupo" placeholder="Nombre Empresa" ng-model="agregarMiembrosGrupo.nombreEmpresa"
+							  maxlength="99">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-4 col-md-1">
+							<button ng-click="agregarMiembrosGrupo.consultarEmpresas(agregarMiembrosGrupo.tipo, agregarMiembrosGrupo.identEmpresa, agregarMiembrosGrupo.nombreEmpresa)"
+							  class="btn btn-primary">Consultar</button>
+						</div>
+					</div>
+					<div ng-show="agregarMiembrosGrupo.empresasDisponibles.datos" class="panel panel-primary">
+						<div class="panel-heading">Seleccionar empresas a incluir</div>
+						<div class="panel-body">
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th class="col-sm-1" ng-click="agregarMiembrosGrupo.checkAll(agregarMiembrosGrupo.empresasDisponibles.datos)">
+											<span><input type="checkbox" aria-label="checkbox" ng-change="agregarMiembrosGrupo.checkAll(agregarMiembrosGrupo.empresasDisponibles.datos, agregarMiembrosGrupo.checkAllFlag)" ng-model="agregarMiembrosGrupo.checkAllFlag" ng-true-value="true" ng-false-value="false"></span>
+										</th>
+										<th class="col-sm-2" ng-repeat="col in agregarMiembrosGrupo.tableColumns.empresa" ng-click="agregarMiembrosGrupo.doSort(col.property)">{{col.label}}
+											<span ng-show="!agregarMiembrosGrupo.reverse && agregarMiembrosGrupo.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+											<span ng-show="agregarMiembrosGrupo.reverse && agregarMiembrosGrupo.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-show="!agregarMiembrosGrupo.empresasDisponibles.datos || !agregarMiembrosGrupo.empresasDisponibles.datos.length"><td colspan="5" class="text-center">No hay datos</td></tr>
+									<tr ng-repeat="data in agregarMiembrosGrupo.empresasDisponibles.datos | orderBy:agregarMiembrosGrupo.sortBy:agregarMiembrosGrupo.reverse"
+									  ng-click="agregarMiembrosGrupo.checkItem(agregarMiembrosGrupo.empresasDisponibles.datos, data)">
+										<td align="center">
+											<span><input type="checkbox" aria-label="checkbox" ng-model="data.selected" ng-change="agregarMiembrosGrupo.checkItem(agregarMiembrosGrupo.empresasDisponibles.datos, data)"></span>
+										</td>
+										<td align="center" ng-repeat="param in agregarMiembrosGrupo.tableColumns.empresa">
+											<span ng-if="!param.subProperty">{{data[param.property]}}</span>
+											<span ng-if="param.subProperty">{{data[param.property][param.subProperty]}}</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="estiloPaginacion">
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li>
+											<a ng-click="agregarMiembrosGrupo.paginaSeleccionadaEmpresa(agregarMiembrosGrupo.paginasAgregarEmpresa.paginaActual, 'anterior')"
+											  aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+										<li ng-class="{active: page == agregarMiembrosGrupo.paginasAgregarEmpresa.paginaActual}" ng-repeat="page in agregarMiembrosGrupo.paginasAgregarEmpresa.arrayTotalPaginas"><span ng-click="agregarMiembrosGrupo.paginaSeleccionadaEmpresa(page)">{{page}}</span></li>
+										<li>
+											<a ng-click="agregarMiembrosGrupo.paginaSeleccionadaEmpresa(agregarMiembrosGrupo.paginasAgregarEmpresa.paginaActual, 'siguiente')"
+											  aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-primary" ng-click="agregarMiembrosGrupo.atrasGrupo()">Atrás</button>
+				<input type="submit" class="btn btn-primary" ng-show="agregarMiembrosGrupo.variables.showAgregarSeleccion" value="Agregar selección"
+				  ng-click="agregarMiembrosGrupo.agregarSeleccion(agregarMiembrosGrupo.objNegocio)"></ </form>
+		</div>
+	</div>
+</div>

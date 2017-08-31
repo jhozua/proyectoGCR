@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Administrar Funcionalidades</h4>
+        </div>
+        <div class="panel-body">
+            <form role="form-horizontal" name="validarFunc">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="funcionalidadesSelect" class="col-sm-2 control-label">Funcionalidad</label>
+                        <div class="col-md-5">
+                            <select name="funcionalidadesSelect" class="form-control" ng-model="adminCamposFunc.selectedFunc" ng-options="fun.nombre for fun in adminCamposFunc.funcionalidades"
+                                ng-change="adminCamposFunc.cargarPantallasFunc()">
+                        <option value="" disabled selected>Seleccione...</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h5>Pantallas</h5>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-1">Código</th>
+                                    <th class="col-sm-4">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="pan in adminCamposFunc.pantallas | orderBy:sortBy" ng-click="adminCamposFunc.cargarCamposFunc(pan.idPantalla, $index)"
+                                    ng-class="{'selected':$index == adminCamposFunc.idPantSelect}">
+                                    <td class="col-sm-1">{{pan.idPantalla}}</td>
+                                    <td class="col-sm-4">{{pan.nombrePantalla}}</td>
+                                </tr>
+                                <tr ng-show="!adminCamposFunc.pantallas || !adminCamposFunc.pantallas.length">
+                                    <td colspan="2" class="text-center">No hay datos</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h5>Campos</h5>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-4" ng-click="adminCamposFunc.doSort('campoPantalla.nombre')">Campo
+                                        <span ng-show="!adminCamposFunc.reverse && adminCamposFunc.reverse !== undefined" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                        <span ng-show="adminCamposFunc.reverse" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+
+                                    </th>
+                                    <th class="col-sm-1">Visible</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cam in adminCamposFunc.campos | orderBy:adminCamposFunc.sortBy:adminCamposFunc.reverse">
+                                    <td class="col-sm-4">{{cam.campoPantalla.nombre}}</td>
+                                    <td class="col-sm-1">
+                                        <input type="checkbox" ng-true-value="'S'" ng-false-value="'N'" ng-model="cam.fVisible" />
+                                    </td>
+                                    <tr ng-show="!adminCamposFunc.campos || !adminCamposFunc.campos.length">
+                                        <td colspan="2" class="text-center">No hay datos</td>
+                                    </tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button class="btn btn-primary center" ng-click="adminCamposFunc.salir()">Salir</button>
+                <input type="submit" ng-click="adminCamposFunc.guardar()" class="btn btn-primary center" value="Guardar" ng-disabled="!adminCamposFunc.campos.length"
+                />
+
+            </form>
+        </div>
+    </div>
+</div>
+</div>

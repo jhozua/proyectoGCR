@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Administración de Consorcios, Uniones Temporales y Patrimonios Autónomos
+        </div>
+        </br>
+        <div class="panel-body">
+            <form class="form-horizontal col-md-offset-1" role="form" name="consultarCUTPA" novalidate>
+                <div class="form-group">
+                    <label for="tipodoc" class="col-md-2 control-label">Tipo agrupamiento</label>
+                    <div class="col-md-3">
+                        <select class="form-control" name="tipoagrup" ng-model="adminCUTPA.filtroTipoAgrup" ng-change="adminCUTPA.cambiarTipo()">
+							<option value="" selected></option>
+							<option ng-repeat="tipo in adminCUTPA.listaTiposAgrupamientos" value="{{tipo.codigoParametro}}">{{tipo.descripcion}}</option>
+						</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipodoc" class="col-md-2 control-label">Tipo identificación</label>
+                    <div class="col-md-3">
+                        <select class="form-control" name="tipodoc" ng-model="adminCUTPA.filtroTipodoc">
+							<option value="" selected></option>
+							<option ng-repeat="tipo in adminCUTPA.listaTipoDocumento" value="{{tipo.codigoParametro}}">{{tipo.descripcion}}</option>
+						</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="numdoc" class="col-md-2 control-label">No. identificación</label>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="numdoc" ng-model="adminCUTPA.filtroNumdoc">
+                    </div>
+                    <div class="clearfix col-md-3 col-md-offset-2">
+                        <button class="form-control btn btn-primary btn-block" ng-click="adminCUTPA.consultarInvolucradoFiltro()">Consultar</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fiduc" class="col-md-2 control-label">Fiduciaria</label>
+                    <div class="col-md-3">
+                        <select class="form-control" name="fiduc" ng-model="adminCUTPA.filtroFiduc">
+							<option value="" selected></option>
+							<option ng-repeat="fiduc in adminCUTPA.listaFiduciarias" value="{{fiduc.codigoParametro}}">{{fiduc.descripcion}}</option>
+						</select>
+                    </div>
+                    <div class="clearfix col-md-3 col-md-offset-2">
+                        <button class="form-control btn btn-primary btn-block" ng-click="adminCUTPA.crearCUTPA()">Crear nuevo C/UT/PA</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="consec" class="col-md-2 control-label">Consecutivo (aplica para PA)</label>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="consec" ng-model="adminCUTPA.filtroConsec">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nombre" title="Sensible a mayúsculas/minúsculas" class="col-md-2 control-label">Nombre</label>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="nombre" ng-model="adminCUTPA.filtroNombre">
+                    </div>
+                </div>
+            </form>
+            <div class="panel panel-primary table-container">
+                <div class="panel-heading">
+                    Consorcios/Uniones Temporales/Patrimonios Autónomos
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-striped table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2" ng-repeat="col in adminCUTPA.tableColumns.involucrado" ng-click="adminCUTPA.doSort(col.property,col.subProperty)">{{col.label}}
+                                    <span ng-show="adminCUTPA.reverse != undefined && !adminCUTPA.reverse && ((!col.subProperty && adminCUTPA.sortBy == col.property)
+                                    ||(col.subProperty && adminCUTPA.sortBy.split('.')[0] == col.property && adminCUTPA.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+                                    <span ng-show="adminCUTPA.reverse && ((!col.subProperty && adminCUTPA.sortBy == col.property)
+                                    ||(col.subProperty && adminCUTPA.sortBy.split('.')[0] == col.property && adminCUTPA.sortBy.split('.')[1] == col.subProperty))" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+                                    
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!adminCUTPA.datosTabla.datos || !adminCUTPA.datosTabla.datos.length">
+                                <td colspan="8" class="text-center">No hay datos</td>
+                            </tr>
+                            <tr ng-repeat="involucrado in adminCUTPA.datosTabla.datos | orderBy:adminCUTPA.sortBy:adminCUTPA.reverse">
+                                <td class="col-sm-2" ng-repeat="param in adminCUTPA.tableColumns.involucrado">
+                                    <span ng-if="param.subProperty">{{involucrado[param.property][param.subProperty]}}</span>
+                                    <span ng-if="!param.subProperty && !param.consecutivo">{{involucrado[param.property]}}</span>
+                                    <input consecutivo class="input-consec" ng-if="!param.subProperty && param.consecutivo" ng-model="involucrado[param.property]" readonly/>
+                                    <span ng-if="!param.property" class="glyphicon glyphicon-pencil" ng-click="adminCUTPA.irEdicionCUTPA(involucrado)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="estiloPaginacion">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a ng-click="adminCUTPA.paginaSeleccionada(adminCUTPA.paginasInvolucrados.paginaActual, 'anterior')" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li ng-class="{active: pagina == adminCUTPA.paginasInvolucrados.paginaActual}" ng-repeat="pagina in adminCUTPA.paginasInvolucrados.arrayTotalPaginas"><span ng-click="adminCUTPA.paginaSeleccionada(pagina)">{{pagina}}</span></li>
+                                <li>
+                                    <a ng-click="adminCUTPA.paginaSeleccionada(adminCUTPA.paginasInvolucrados.paginaActual, 'siguiente')" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div/>
+                    <button class="btn btn-primary" ng-click="adminCUTPA.salirMenu()">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,69 @@
+<div class="container-fluid">
+	<div class="panel panel-primary" ng-hide="adminPlantillas.variables.showDetallePlantillas">
+		<div class="panel-heading">Administración de Plantillas</div>
+		<div class="panel-body">
+			<form class="form-horizontal" role="form" name="adminPlantillaForm" novalidate>
+				<div class="form-group" ng-class="{ 'has-error': adminPlantillaForm.nombrePlantilla.$touched && adminPlantillaForm.nombrePlantilla.$invalid }">
+					<label for="nombrePlantilla" class="col-sm-2 control-label">Nombre plantilla</label>
+					<div class="col-md-3">
+						<input type="text" name="nombrePlantilla" class="form-control" id="nombrePlantilla" placeholder="Nombre" ng-model="adminPlantillas.nombrePlantilla"
+								maxlength="99">
+					</div>
+					<div class="col-md-3">
+						<button ng-click="adminPlantillas.consultarPlantillas(adminPlantillas.nombrePlantilla)" class="btn btn-primary consultarPlantilla">Consultar</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div>
+		<div class="container-fluid">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Plantillas
+					<span ng-disabled="!adminPlantillas.tableData.datos || !adminPlantillas.tableData.datos.length" ng-click="adminPlantillas.eliminarPlantilla()" class="glyphicon glyphicon-trash btn botonEliminar" data-placement="top"
+							title="Eliminar plantillas seleccionadas" onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+						<span ng-click="adminPlantillas.crearPlantilla()" class="glyphicon glyphicon-plus btn botonEliminar" data-placement="top"
+								title="Agregar plantillas" onmouseenter="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover table-fixed">
+						<thead>
+							<tr>
+								<th class="col-sm-2">Eliminar
+									<span><input type="checkbox" aria-label="checkbox" ng-change="adminPlantillas.checkAll(adminPlantillas.checkAllFlag)" ng-model="adminPlantillas.checkAllFlag" ng-true-value="true" ng-false-value="false" ng-disabled="!adminPlantillas.tableData.datos || !adminPlantillas.tableData.datos.length"></span>
+								</th>
+								<th class="col-sm-2" ng-repeat="col in adminPlantillas.tableColumns.plantilla" ng-click="adminPlantillas.tableData.datos.length > 0 && adminPlantillas.doSort(col.property, col.subProperty)">{{col.label}}
+									<span ng-show="!adminPlantillas.reverse && col.property && ((!col.subProperty && adminPlantillas.sortBy == col.property)
+										||(col.subProperty && adminPlantillas.sortBy.split('.')[0] == col.property && adminPlantillas.sortBy.split('.')[1] == col.subProperty))"
+											class="glyphicon glyphicon-chevron-up orderIcon"></span>
+										<span ng-show="adminPlantillas.reverse && col.property && ((!col.subProperty && adminPlantillas.sortBy == col.property)
+										||(col.subProperty && adminPlantillas.sortBy.split('.')[0] == col.property && adminPlantillas.sortBy.split('.')[1] == col.subProperty))"
+												class="glyphicon glyphicon-chevron-down orderIcon"></span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="data in adminPlantillas.tableData.datos |filterMiembrosGrupo| orderBy:adminPlantillas.sortBy:adminPlantillas.reverse">
+								<td data-title="Eliminar" align="center">
+									<span><input type="checkbox" aria-label="checkbox" ng-model="data.selected"></span>
+								</td>
+								<td align="center" ng-repeat="param in adminPlantillas.tableColumns.plantilla">
+									<span ng-if="!param.subProperty && !param.check">{{data[param.property]}}</span>
+									<span ng-if="param.subProperty && !param.check">{{data[param.property][param.subProperty]}}</span>
+									<span ng-if="!param.property && !param.check" class="glyphicon glyphicon-pencil" ng-click="adminPlantillas.editarPlantilla(data)"
+									/>
+								</td>
+							</tr>
+							<tr ng-if="!adminPlantillas.tableData.datos || !adminPlantillas.tableData.datos.length">
+								<td colspan="4">No hay plantillas</td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary" ng-click="adminPlantillas.salirMenu()">Salir</button>
+					<button class="btn btn-primary" ng-disabled="!adminPlantillas.tableData.datos || !adminPlantillas.tableData.datos.length" ng-click="adminPlantillas.guardarEliminarPlantillas()">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

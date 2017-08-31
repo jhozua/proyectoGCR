@@ -1,0 +1,9 @@
+<div class='container-fluid'>
+	<div class='alert alert-dismissable fade in alert-{{alertCtrl.alertData.type}}' ng-show='alertCtrl.alertData.show' role='alert'>
+		<button type="button" class="close" ng-click="alertCtrl.alertData.show=false;" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<span class="glyphicon" ng-class="alertCtrl.alertData.icon" aria-hidden="true">&nbsp;</span>
+		{{alertCtrl.alertData.message}}
+	</div>	
+</div>

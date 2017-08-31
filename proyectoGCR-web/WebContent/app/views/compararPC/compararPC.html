@@ -1,0 +1,34 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Comparar PC</div>
+		<div class="panel-body">
+			<div class="ga-file-upload-panel clearfix">
+        		<h4>Cargar Achivos a Comparar</h4>
+    			<form name="FormArchivoIzquierda" novalidate>
+        			<div class="form-group col-xs-12">
+            			<input type="file" id="archivoIzquierda" name="file" required>
+            			<span class="error" ng-show="compararPC.missingFile">Debe seleccionar un archivo</span>
+        			</div>
+        			<div class="col-xs-12">
+            			<button class="btn btn-primary" ng-click="compararPC.cargarArchivoIzquierda()">Cargar Archivo Izquierda <i class="glyphicon glyphicon-open"></i></button>
+        			</div>
+   		 		</form>
+   		 		<div class="col-xs-12"><br></div>
+   		 		<form name="FormArchivoDerecha" novalidate>
+        			<div class="form-group col-xs-12">
+            			<input type="file" id="archivoDerecha" name="file" required>
+            			<span class="error" ng-show="compararPC.missingFile">Debe seleccionar un archivo</span>
+        			</div>
+        			<div class="col-xs-12">
+            			<button class="btn btn-primary" ng-click="compararPC.cargarArchivoDerecha()">Cargar Archivo Derecha <i class="glyphicon glyphicon-open"></i></button>
+        			</div>
+   		 		</form>
+    		</div>
+    		<div class="col-xs-12"><br></div>
+    		<div class="col-xs-14">
+    			<button class="btn btn-primary" ng-click="compararPC.compararArchivosCargados()">Comparar PC</button>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-primary" ng-click="compararPC.salir()" >Salir</button>
+</div>

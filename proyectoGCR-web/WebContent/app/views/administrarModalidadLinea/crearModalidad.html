@@ -1,0 +1,115 @@
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4>Crear Modalidad</h4>
+		</div>
+		<div class="panel-body">
+			<form ng-if="crearModalidad.func.fActualizar=='S' && !crearModalidad.error" class="form-horizontal" role="form" name="validarModalidad" novalidate>
+				<div class="form-group" ng-repeat="campo in crearModalidad.tableColumns.modalidades" ng-if="(campo.visible == 'S' || campo.obligatorio == 'S') && !campo.norepeat" ng-class="{ 'has-error': validarModalidad.{{campo.property}}.$touched && validarModalidad[campo.property].$invalid }">
+					<label for="{{campo.property}}" class="col-md-2 control-label">{{campo.label}}:</label>
+					<div class="col-md-3">
+						<input ng-if="campo.type=='text'" type="text" class="form-control" name="{{campo.property}}" placeholder="{{campo.label}}" ng-model="crearModalidad.nuevaModalidad[campo.property]"
+										maxlength="{{campo.length}}" ng-disabled="campo.editable != 'S'" ng-required="campo.obligatorio == 'S'">
+						<select ng-if="campo.type=='select'" name="{{campo.property}}" class="form-control" ng-options="item[campo.subProperty] for item in crearModalidad[campo.property]" ng-model="crearModalidad.nuevaModalidad[campo.property]" ng-required="campo.obligatorio == 'S'" 
+						/>
+						<input ng-if="campo.type=='number'" type="number" class="form-control" id="{{campo.property}}" placeholder="Orden" ng-model="crearModalidad.nuevaModalidad[campo.property]"
+										maxlength="{{campo.length}}" min="{{campo.min}}" ng-required="campo.obligatorio == 'S'">
+						<label ng-if="campo.check"><input type="checkbox" ng-init="crearModalidad.nuevaModalidad[campo.property]='N'" ng-model="crearModalidad.nuevaModalidad[campo.property]"
+									ng-true-value="'S'" ng-false-value="'N'"></label>
+							<p class="help-block" ng-if="validarModalidad[campo.property].$touched && validarModalidad[campo.property].$invalid">El campo '{{campo.label}}' es requerido.</p>
+					</div>
+				</div>
+				<div class="form-group" ng-if="crearModalidad.tableColumns.modalidades[12].visible == 'S'">
+					<label for="fPadre" class="col-md-2 control-label">{{crearModalidad.tableColumns.modalidades[12].label}}:</label>
+					<div class="col-md-3">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-init="crearModalidad.nuevaModalidad.fPadre='N'" ng-model="crearModalidad.nuevaModalidad.fPadre"
+									ng-true-value="'S'" ng-false-value="'N'" ng-change="crearModalidad.verificarPadre()">
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="crearModalidad.tableColumns.modalidades[13].visible == 'S'">
+					<label for="idModalidadPadre" class="col-md-2 control-label">{{crearModalidad.tableColumns.modalidades[13].label}}:</label>
+					<div class="col-md-3">
+						<select class="form-control" ng-options="item.idTipoModalidad as item.nombreCorto disable when item.estado.codigoParametro == 'INA' for item in crearModalidad.tableData_mod_padre"
+										ng-model="crearModalidad.nuevaModalidad.idModalidadPadre" ng-disabled="crearModalidad.nuevaModalidad.fPadre == 'S'"/>
+						<br/>
+						<button ng-if="crearModalidad.nuevaModalidad.fPadre=='N'" ng-disabled="crearModalidad.funcLineas.fActualizar != 'S'" ng-click="crearModalidad.irCrearLinea()" class="btn btn-primary">Crear línea</button>
+					</div>
+				</div>
+				<div id="seccionLineas" ng-if="crearModalidad.nuevaModalidad.fPadre=='N'">
+					<div class="col-md-5 ">
+						<div class="panel panel-primary ">
+							<div class="panel-heading ">
+								<h4>Líneas disponibles</h4>
+							</div>
+							<div class="panel-body wrapper-lineas">
+								<table class="table table-hover table-bordered">
+									<thead>
+										<tr>
+											<th class="col-sm-2" ng-repeat="col in crearModalidad.tableColumns.lineas">{{col.label}}
+												<!--<span ng-show="!crearModalidad.reverse && crearModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+											<span ng-show="crearModalidad.reverse && crearModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>-->
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="data in crearModalidad.tableData" ng-click="crearModalidad.guardarArray(data , $index)">
+											<td ng-repeat="param in crearModalidad.tableColumns.lineas">
+												{{data[param.property]}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-0 col-md-1">
+							<br></br>
+							<button ng-click="crearModalidad.copiarTodo_array()" class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+		      </button>
+							<br></br>
+							<button ng-click="crearModalidad.borrarTodo_array()" class="btn btn-primary btn-block">
+		      	<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+		      </button>
+							<br></br>
+						</div>
+						<div class="col-md-5">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h4>Líneas relacionadas</h4>
+								</div>
+								<div class="panel-body wrapper-lineas">
+									<table class="table table-hover table-bordered">
+										<thead>
+											<tr>
+												<th class="col-sm-2" ng-repeat="col in crearModalidad.tableColumns.lineas">{{col.label}}
+													<!--<span ng-show="!crearModalidad.reverse && crearModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+												<span ng-show="crearModalidad.reverse && crearModalidad.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>-->
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="data in crearModalidad.dataArrayLineasR" ng-click="crearModalidad.borrarArray(data, $index)">
+												<td ng-repeat="param in crearModalidad.tableColumns.lineas">
+													{{data[param.property]}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<button ng-click="crearModalidad.salirGestionModalidad()" class="btn btn-primary">Atrás</button>
+					<button ng-click="crearModalidad.guardarDb()" class="btn btn-primary" ng-disabled="validarModalidad.$invalid ">Guardar </button>
+				</div>
+			</form>
+			<button ng-if="crearModalidad.func.fCrear != 'S' || crearModalidad.error" ng-click="crearModalidad.salirGestionModalidad()" class="btn btn-primary">Atrás</button>
+		</div>
+	</div>

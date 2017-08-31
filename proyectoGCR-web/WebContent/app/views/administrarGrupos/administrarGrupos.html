@@ -1,0 +1,170 @@
+<div class="container-fluid">
+	<div class="panel panel-primary" ng-hide="adminGrupos.variables.showDetalleGrupo">
+		<div class="panel-heading">Consultar grupos</div>
+		<div class="panel-body">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="codigoGrupo" class="col-md-2 control-label">Código grupo</label>
+					<div class="col-md-3">
+						<input type="text" class="form-control" id="codigoGrupo" placeholder="Código grupo" ng-model="adminGrupos.codigoGrupo" ggt-Allow-Pattern="([1234567890])"
+						    maxlength="15">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="nombreGrupo" class="col-md-2 control-label">Nombre grupo</label>
+					<div class="col-md-3">
+						<input type="text" class="form-control" id="nombreGrupo" placeholder="Nombre grupo" ng-model="adminGrupos.nombreGrupo" maxlength="99">
+					</div>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-9">
+							<button ng-click="adminGrupos.consultarGrupos(adminGrupos.codigoGrupo, adminGrupos.nombreGrupo)" class="btn btn-primary consultarGrupo">Consultar</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div ng-show="!adminGrupos.variables.showDetalleGrupo">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Grupos
+				<span ng-click="adminGrupos.crearGrupo()" class="glyphicon glyphicon-plus btn botonEliminar"
+							    data-placement="top" title="Crear Grupo" onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+			</div>
+			<div class="panel-body">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th class="col-sm-2" ng-repeat="col in adminGrupos.tableColumns.grupos" ng-click="adminGrupos.doSort(col.property)">{{col.label}}
+								<span ng-show="!adminGrupos.reverse && adminGrupos.sortBy == col.property" class="glyphicon glyphicon-chevron-up orderIcon"></span>
+								<span ng-show="adminGrupos.reverse && adminGrupos.sortBy == col.property" class="glyphicon glyphicon-chevron-down orderIcon"></span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="data in adminGrupos.tableData.datos | orderBy:adminGrupos.sortBy:adminGrupos.reverse" ng-click="adminGrupos.irGrupoDetalle(data, '1' , data)">
+							<td align="center" ng-repeat="param in adminGrupos.tableColumns.grupos">
+								{{data[param.property]}}
+							</td>
+						</tr>
+						<tr ng-if="!adminGrupos.tableData.datos || !adminGrupos.tableData.datos.length">
+							<td colspan="2">No hay grupos/No se ha consultado</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="estiloPaginacion" ng-if="adminGrupos.tableData.datos.length >0">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<li>
+								<a ng-click="adminGrupos.paginaSeleccionada(adminGrupos.paginasAdminGrupos.paginaActual, 'anterior')" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							<li ng-class="{active: page == adminGrupos.paginasAdminGrupos.paginaActual}" ng-repeat="page in adminGrupos.paginasAdminGrupos.arrayTotalPaginas"><span ng-click="adminGrupos.paginaSeleccionada(page)">{{page}}</span></li>
+							<li>
+								<a ng-click="adminGrupos.paginaSeleccionada(adminGrupos.paginasAdminGrupos.paginaActual, 'siguiente')" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-primary" ng-click="adminGrupos.salirMenu()" ng-hide="adminGrupos.variables.showDetalleGrupo">Salir</button>
+	<div class="panel panel-primary" ng-show="adminGrupos.variables.showDetalleGrupo">
+		<div class="panel-heading" ng-if="!adminGrupos.variables.flagCrearGrupo">Consultar grupo</div>
+		<div class="panel-heading" ng-if="adminGrupos.variables.flagCrearGrupo">Crear grupo</div>
+		<div class="panel-body">
+			<h3>Datos del Grupo
+				<button ng-disabled="adminGrupos.grupo.esCorporativo" ng-show="adminGrupos.variables.disabledConsultarGrupo && !adminGrupos.variables.flagCrearGrupo" ng-click="adminGrupos.editarGrupo()"
+				    class="btn btn-primary editarEliminarGrupo">Editar grupo</button>
+				<button ng-show="!adminGrupos.variables.disabledConsultarGrupo  && !adminGrupos.variables.flagCrearGrupo" ng-click="adminGrupos.eliminarGrupo()"
+				    class="btn btn-primary editarEliminarGrupo">Inactivar grupo</button>
+			</h3>
+			<br>
+			<form class="form-horizontal" role="form" name="consultarGrupo" novalidate>
+				<fieldset ng-disabled="adminGrupos.variables.disabledConsultarGrupo">
+					<div class="form-group">
+						<label for="codigoGrupoDetalle" class="col-md-2 control-label">Código</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="codigoGrupoDetalle" ng-model="adminGrupos.grupo.codigo" readonly>
+						</div>
+						<span class="col-md-3" ng-if="adminGrupos.grupo.esCorporativo">
+							<strong>(Grupo corporativo)</strong>
+						</span>
+						<span class="col-md-3" ng-if="!adminGrupos.grupo.esCorporativo">
+							<strong>(Grupo local)</strong>
+						</span>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': consultarGrupo.nombreGrupoDetalle.$touched && consultarGrupo.nombreGrupoDetalle.$invalid }">
+						<label class="col-md-2 control-label">Nombre grupo</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="nombreGrupoDetalle" ng-model="adminGrupos.grupo.nombre" maxlength="99" required>
+							<p class="help-block" ng-if="consultarGrupo.nombreGrupoDetalle.$touched && consultarGrupo.nombreGrupoDetalle.$invalid">El nombre del grupo es requerido.</p>
+						</div>
+					</div>
+					<div class="form-group" ng-if="!adminGrupos.variables.flagCrearGrupo">
+						<label for="PerteneceCodigoGrupoDetalle" class="col-md-2 control-label">Pertenece a grupo</label>
+						<div class="col-md-5 row">
+							<div class="col-md-4">
+								<input type="text" class="form-control" id="PerteneceCodigoGrupoDetalle" ng-model="adminGrupos.grupo.grupoPadre.codigo" readonly>
+							</div>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="PerteneceNombreGrupoDetalle" ng-model="adminGrupos.grupo.grupoPadre.nombre" readonly>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">Miembros
+							<span ng-if="adminGrupos.itemDetalleGrupo.datos.length" ng-hide="adminGrupos.variables.disabledConsultarGrupo" ng-click="adminGrupos.eliminarMiembrosGrupo(adminGrupos.itemDetalleGrupo.datos)"
+							    class="glyphicon glyphicon-trash btn botonEliminar" data-placement="top" title="Eliminar Miembros Seleccionados" onmouseenter="$(this).tooltip('show')"
+							    onmouseleave="$(this).tooltip('hide')"></span>
+							<span ng-hide="adminGrupos.variables.disabledConsultarGrupo" ng-click="adminGrupos.agregarMiembrosGrupo()" class="glyphicon glyphicon-plus btn botonEliminar"
+							    data-placement="top" title="Agregar Miembro" onmouseover="$(this).tooltip('show')" onmouseleave="$(this).tooltip('hide')"></span>
+						</div>
+						<div class="panel-body">
+							<table class="table table-hover table-striped table-fixed">
+								<thead>
+									<tr>
+										<th class="col-sm-2" ng-repeat="col in adminGrupos.tableColumns.detalleGrupo" ng-click="adminGrupos.doSort(col.property,col.subProperty)">{{col.label}}
+											<span ng-show="!adminGrupos.reverse && ((!col.subProperty && adminGrupos.sortBy == col.property) || (col.subProperty && adminGrupos.sortBy.split('.')[0] == col.property && adminGrupos.sortBy.split('.')[1] == col.subProperty))"
+											    class="glyphicon glyphicon-chevron-up orderIcon"></span>
+											<span ng-show="adminGrupos.reverse && ((!col.subProperty && adminGrupos.sortBy == col.property) || (col.subProperty && adminGrupos.sortBy.split('.')[0] == col.property && adminGrupos.sortBy.split('.')[1] == col.subProperty))"
+											    class="glyphicon glyphicon-chevron-down orderIcon"></span>
+										</th>
+										<th class="col-sm-2">
+											<span>Eliminar<span class="checkboxEliminar" ng-show="adminGrupos.hayMiembros"><input type="checkbox" aria-label="checkbox" ng-change="adminGrupos.checkAll(adminGrupos.variables.checkAllFlag)" ng-model="adminGrupos.variables.checkAllFlag" ng-true-value="true" ng-false-value="false"></span></span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-show="adminGrupos.itemDetalleGrupo.datos[0].miembro === undefined || !adminGrupos.itemDetalleGrupo.datos.length">
+										<td colspan="8" class="text-center">No hay datos</td>
+									</tr>
+									<tr ng-if="adminGrupos.itemDetalleGrupo.datos[0].miembro !== undefined" ng-repeat="data in adminGrupos.itemDetalleGrupo.datos | filterMiembrosGrupo | orderBy: adminGrupos.sortBy:adminGrupos.reverse">
+										<td align="center" ng-class="{textCenter: (param.property == adminGrupos.radioColumn)}" ng-repeat="param in adminGrupos.tableColumns.detalleGrupo">
+											<span><input ng-if="param.property == adminGrupos.radioColumn" type="radio" name="checkPrincipal" aria-label="radio" ng-model="data[param.property]" ng-disabled="param.disabled" ng-change="adminGrupos.checkRadio(data)" value="S" required></span>
+											<span ng-if="!param.subProperty && param.property != adminGrupos.radioColumn">{{data[param.property]}}</span>
+											<span ng-if="param.subProperty && !param.subProperty2 && param.subProperty != adminGrupos.checkColumn">{{data[param.property][param.subProperty]}}</span>											
+											<span ng-if="param.subProperty && !param.subProperty2 && param.subProperty == adminGrupos.checkColumn"><input ng-if="!data.miembro.codigo" type="checkbox" ng-model="data[param.property][param.subProperty]" ng-true-value="'S'" ng-false-value="'N'" disabled></span>
+											<span ng-if="param.subProperty && param.subProperty2">{{data[param.property][param.subProperty][param.subProperty2]}}</span>
+										</td>
+										<td align="center">
+											<span><input type="checkbox" aria-label="checkbox" ng-model="data.selected"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				</fieldset>
+				<button class="btn btn-primary" ng-click="adminGrupos.atrasConsultarGrupos()">Atrás</button>
+				<!-- <button class="btn btn-primary " ng-hide="adminGrupos.variables.disabledConsultarGrupo" ng-click="adminGrupos.guardarDetalleGrupo()" ng-disabled="consultarGrupo.nombreGrupoDetalle.$invalid || consultarGrupo.tipoLEACombobox.$invalid || consultarGrupo.valorLEAInput.$invalid || formMiembros.checkPrincipal.$invalid">Guardar</button> -->
+				<button class="btn btn-primary" ng-hide="adminGrupos.variables.disabledConsultarGrupo" ng-click="adminGrupos.guardarDetalleGrupo()"
+				    ng-disabled="consultarGrupo.nombreGrupoDetalle.$invalid">Guardar</button>
+			</form>
+			</div>
+		</div>
+	</div>

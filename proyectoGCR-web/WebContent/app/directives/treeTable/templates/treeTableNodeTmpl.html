@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<div class="node" ng-click="tTableNode.clickEvent(tTableNode.rowData)" ng-class="tTableNode.rowStyle(tTableNode.rowData)" tabindex="0" ng-right-click="tTableNode.rightClickFunction($event)">
+    <div ng-class="{'collapsed-tree':tTableNode.rowData.childrens && tTableNode.showChildrens, 'expand': tTableNode.rowData.childrens && !tTableNode.showChildrens}" ng-style="tTableNode.iconStyle()" ng-click="tTableNode.toggleNode()"></div>
+    <div class="node-property" ng-style="tTableNode.treeStyle($first, col, tTableNode.rowData)" ng-repeat="col in tTableNode.metaData.columns">
+        <div class="special-condition" ng-style="tTableNode.iconMarkStyle()" ng-if="tTableNode.rowData.specialCondition && $first"></div>
+        <span ng-if="!col[tTableNode.formatProperty]">{{tTableNode.rowData[col.propiedad]}}</span>
+        <span ng-if="col[tTableNode.formatProperty]">{{tTableNode.rowData[col.propiedad] | currency: '' : 2}}</span>
+    </div>
+</div>
+<div class="node-children" ng-show="tTableNode.rowData.childrens && tTableNode.showChildrens">
+    <tree-table-node ng-repeat="row in tTableNode.rowData.childrens" row-data="row" meta-data="tTableNode.metaData" path="tTableNode.path" level="tTableNode.nextLevel"></tree-table-node>
+</div>

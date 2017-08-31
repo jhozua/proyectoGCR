@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<div class="tree-table" id="idtreeTableComponent">
+	<div class="row-column" ng-style="tTable.columnStyle(col.width)" id="idtreeTableComponentColumns" ng-repeat="col in tTable.columns">{{col.nombre}}</div>
+	<tree-table-node ng-repeat="row in tTable.tableData" row-data="row" meta-data="tTable.metaData" path="tTable.path"></tree-table-node>
+</div>
+<!-- Inicio Menú contextual -->
+<div class="contextMenu" id="idContextMenu" ng-show="tTable.showContextMenu" ng-mouseleave="tTable.mouseleaveContextMenu()">
+	<div class="contextMenuOptions" ng-click="tTable.itemContexMenu($index)" ng-repeat="item in tTable.contextMenuOptions">{{item.text}}</div>
+</div>
+<!-- Fin Menú contextual -->

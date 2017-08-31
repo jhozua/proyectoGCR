@@ -1,0 +1,17 @@
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header clearfix">
+            {{modal.modalConfig.title}}
+    		<button type="button" class="close" ng-click="modal.closeModal()"><span>x</span></button>
+    	</div>
+    	<div class="modal-body">
+    		{{modal.modalConfig.msg}}
+    	</div>
+    	<div class="modal-footer">
+    		<button type="button" class="btn btn-primary" ng-click="modal.button1Action()">{{modal.modalConfig.button1Text || 'Confirmar'}}</button>
+    		<button type="button" class="btn btn-default" ng-click="modal.button2Action()">{{modal.modalConfig.button2Text || 'Cancelar'}}</button>
+    	</div>
+    </div>
+  </div>
+</div>
